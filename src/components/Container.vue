@@ -9,9 +9,11 @@
                 </div>
             </el-aside>
             <el-container>
-                <el-header>Header</el-header>
+                <el-header>
+                    <Header></Header>
+                </el-header>
                 <el-main :style="styleObj">
-                    <div >{{msg}}</div>
+                    <Tabs></Tabs>
                 </el-main>
             </el-container>
         </el-container>
@@ -20,6 +22,8 @@
 
 <script>
 import CollapseBox from './CollapseBox.vue'
+import Header from './Header.vue'
+import Tabs from './Tabs.vue'
 import $ from 'jquery'
 export default {
     name:"Container",
@@ -28,12 +32,11 @@ export default {
             into:false,//侧边栏是否隐藏
             arrow:["collapse-into","el-icon-d-arrow-left"],
             styleObj:{height:document.documentElement.clientHeight-60+"px"},
-            styleObj2:{height:document.documentElement.clientHeight+"px"},
-            msg:"sssss"
+            styleObj2:{height:document.documentElement.clientHeight+"px"}
         }
     },
     components:{
-        CollapseBox
+        CollapseBox,Header,Tabs
     },
     methods:{
         /**
@@ -63,10 +66,10 @@ export default {
 </script>
 <style>
 .el-header {
-    background-color: #B3C0D1;
+    /* background-color: #F2F6FC; */
     color: #333;
-    text-align: center;
-    line-height: 60px;
+    border-left:1px solid #DCDFE6;
+    border-bottom:1px solid #DCDFE6;
   }
   
   .el-aside {

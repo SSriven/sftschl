@@ -107,7 +107,7 @@ Vue.use(GeminiScrollbar)
     word-wrap: break-word;
     background: #409EFF;
     font-weight: bold;
-    box-shadow: 0 4px 1px rgba(0,0,0,0.35);
+    box-shadow: 0 4px 1px rgba(50,50,50,0.35);
     cursor: pointer;
     z-index: 999;
     color:#fff;

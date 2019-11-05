@@ -5,9 +5,6 @@ import store from './store'
 import './plugins/elements.js'
 import 'element-ui/lib/theme-chalk/index.css';
 
-
-
-
 Vue.config.productionTip = false
 
 
