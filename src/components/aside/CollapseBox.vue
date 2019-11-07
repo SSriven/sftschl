@@ -8,26 +8,6 @@
     </li>
   </ul>
   <GeminiScrollbar autoshow class='collapse' :style="styleObj">
-    <!-- <el-collapse v-model="activeName1" accordion>
-      <el-collapse-item title="新建县" name="1">
-        <el-collapse v-model="activeName2" accordion>
-          <el-collapse-item title="新建中心区" name="2">
-            <el-collapse v-model="activeName3" accordion>
-              <el-collapse-item title="中心镇-社区A" name="3">
-                <div>企业A</div>
-                <div>企业B</div>
-                <div>企业C</div>
-              </el-collapse-item>
-              <el-collapse-item title="中心镇-社区B" name="4">
-                <div>企业A</div>
-                <div>企业B</div>
-                <div>企业C</div>
-              </el-collapse-item>
-            </el-collapse>
-          </el-collapse-item> 
-        </el-collapse>
-      </el-collapse-item>     
-    </el-collapse> -->
     <xia-qu v-show="shows[0]"></xia-qu>
     <qi-ye v-show="shows[1]"></qi-ye>
     <xing-zheng v-show="shows[2]"></xing-zheng>
@@ -130,13 +110,17 @@ Vue.use(GeminiScrollbar)
   }
   /* vertical scrollbar track */
 .gm-scrollbar.-vertical {
-  background-color: #f0f0f0
+  background-color: #fdfdfd
+}
+
+.gm-scrollbar-container{
+  overflow: hidden;
 }
 
 
 /* scrollbar thumb */
 .gm-scrollbar .thumb {
-  background-color: #dedede;
+  background-color: #d0d0d0;
 }
 .gm-scrollbar .thumb:hover {
   background-color: #d0d0d0;

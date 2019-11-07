@@ -12,19 +12,24 @@
                 <el-header>
                     <Header></Header>
                 </el-header>
-                <el-main :style="styleObj">
-                    <Tabs></Tabs>
-                </el-main>
+                <GeminiScrollbar autoshow :style="styleObj">
+                  <el-main :style="styleObj">
+                      <Tabs></Tabs>
+                  </el-main>
+                </GeminiScrollbar>
             </el-container>
         </el-container>
     </div>
 </template>
 
 <script>
-import CollapseBox from './CollapseBox.vue'
-import Header from './Header.vue'
-import Tabs from './Tabs.vue'
+import Vue from 'vue'
+import GeminiScrollbar from 'vue-gemini-scrollbar'
+import CollapseBox from './aside/CollapseBox.vue'
+import Header from './Header/Header.vue'
+import Tabs from './main/Tabs.vue'
 import $ from 'jquery'
+Vue.use(GeminiScrollbar)
 export default {
     name:"Container",
     data(){
@@ -85,6 +90,7 @@ export default {
     color: #333;
     text-align: center;
     border-left:1px solid #DCDFE6;
+    overflow: unset;
   }
   .collapse{
     float: left;
