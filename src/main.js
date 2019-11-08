@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import './plugins/elements.js'
 import './plugins/amap.js'
+import './plugins/myEcharts.js'
 import 'element-ui/lib/theme-chalk/index.css';
 
 

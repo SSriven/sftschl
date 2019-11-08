@@ -8,7 +8,7 @@
         <div class="amap-container">
             <Amap></Amap>
         </div>
-        <el-button slot="reference" @click="visible = !visible">click 激活</el-button>
+        <el-button slot="reference" @click="visible = !visible">打开地图</el-button>
     </el-popover>
 </template>
 
@@ -44,8 +44,8 @@ export default {
 </script>
 
 <style>
-.amap-container{
+/* .amap-container{
     width:1200px;
     height:600px;
-}
+} */
 </style>

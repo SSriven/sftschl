@@ -9,11 +9,11 @@
                 </div>
             </el-aside>
             <el-container>
-                <el-header>
+                <el-header id="my_header">
                     <Header></Header>
                 </el-header>
-                <GeminiScrollbar autoshow :style="styleObj">
-                  <el-main :style="styleObj">
+                <GeminiScrollbar autoshow :style="styleObj" id="main_gs">
+                  <el-main>
                       <Tabs></Tabs>
                   </el-main>
                 </GeminiScrollbar>
@@ -29,6 +29,7 @@ import CollapseBox from './aside/CollapseBox.vue'
 import Header from './Header/Header.vue'
 import Tabs from './main/Tabs.vue'
 import $ from 'jquery'
+import detectElementResize from 'detect-element-resize'
 Vue.use(GeminiScrollbar)
 export default {
     name:"Container",
@@ -40,6 +41,19 @@ export default {
             styleObj2:{height:document.documentElement.clientHeight+"px"}
         }
     },
+    mounted(){
+      // var that = this;
+      // var main = document.getElementById("my_header");
+      // detectElementResize.addResizeListener(main,function(){
+      //       var h = $(".el-header");
+      //       console.log(h)
+      //       // if(h == 0 || h == 60)
+      //       //   that.styleObj = {
+      //       //     height:document.documentElement.clientHeight+"px"
+      //       //   }
+            
+      //   })
+    },
     components:{
         CollapseBox,Header,Tabs
     },
@@ -48,18 +62,29 @@ export default {
        * 控制侧边栏弹入弹出
        */
       collapseShow(){
-        if(!this.into){//隐藏侧边栏
-          $(".el-aside").animate({ 
+        var that = this;
+        if(!this.into){
+          $(".el-aside").stop().animate({ //隐藏侧边栏
             width: "0"
-          }, "fast","swing" );
+          }, "fast","swing",()=>{
+            $(".el-header").stop().slideUp("fast");//隐藏header
+            
+          } );
+
           var arrow = this.arrow;
           arrow = ["collapse-out","el-icon-d-arrow-right"];
           this.into = !this.into;
           this.arrow = arrow;
-        }else{//显示侧边栏
-            $(".el-aside").animate({ 
+        }else{
+            $(".el-aside").stop().animate({ //显示侧边栏
             width: "220px"
-          }, "fast","swing" );
+          }, "fast","swing",()=>{
+            $(".el-header").stop().slideDown("fast");//显示header
+            // console.log($(".el-container").height())
+            
+          } );
+
+
           var arrow = this.arrow;
           arrow = ["collapse-into","el-icon-d-arrow-left"];
           this.into = !this.into;

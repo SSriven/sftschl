@@ -13,34 +13,32 @@
   </template>
 
   <style>
+  #amapBox{
+    height:100%;
+  }
     #amap {
-      height: 600px !important;
-      
+      /* height: 90% !important; */
+      max-width:625px;
+      max-height:270px;
+      margin:0 auto;
     }
   </style>
 
   <script>
   
-  import VueAMap from 'vue-amap';
-import Vue from 'vue'
+  // import VueAMap from 'vue-amap';
+// import Vue from 'vue'
 import $ from 'jquery'
-Vue.use(VueAMap);
-VueAMap.initAMapApiLoader({
-  key: 'c3d6332c240fba68a55509ade65594fe',
-  plugin: ['AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType', 'AMap.PolyEditor', 'AMap.CircleEditor'],
-  // 默认高德 sdk 版本为 1.4.4
-  v: '1.4.4'
-});
     // NPM 方式
     // import { AMapManager } from 'vue-amap';
     // CDN 方式
-    let amapManager = new VueAMap.AMapManager();
+    
     export default {
         name:"Amap",
       data: function() {
         return {
           timer:null,
-          amapManager,
+          amapManager:new this.$VueAMap.AMapManager(),
           zoom: 12,
           center: [121.59996, 31.197646],
           events: {
@@ -59,16 +57,16 @@ VueAMap.initAMapApiLoader({
               alert('map clicked');
             },
             'resize':(e)=>{
-              console.log(e)
+              // console.log(e)
               
               // clearTimeout(this.timer);
-              this.timer = setTimeout(()=>{
+              // this.timer = setTimeout(()=>{
                 
-                console.log(1);
-                // console.log(document.getElementById("amap"))
-                $("#amap").css({width:e.newsize.width})
-                // console.log($("#amap"))
-              },200)
+              //   console.log(1);
+              //   // console.log(document.getElementById("amap"))
+              //   $("#amap").css({width:e.newsize.width})
+              //   // console.log($("#amap"))
+              // },200)
             }
           },
           plugin: ['ToolBar', {
@@ -84,7 +82,7 @@ VueAMap.initAMapApiLoader({
       },
 
       mounted(){
-
+        // this.amapManager = new this.$VueAMap.AMapManager();
       },
 
       methods: {
