@@ -1,7 +1,7 @@
 //Tabs标签页
 <template>
     <div class="tabs">
-        <el-tabs v-model="editableTabsValue2" type="card" closable @tab-remove="removeTab"
+        <el-tabs v-model="editableTabsValue"  type="card" closable @tab-remove="removeTab"
         @tab-click='clickTab'>
             <el-tab-pane
                 v-for="(item, index) in editableTabs2"
@@ -22,20 +22,20 @@ import MainContent from './comp_MainContent.vue'
 export default {
     data() {
       return {
-          
-        editableTabsValue2: '2',
+          editableTabsValue:"0",
         editableTabs2: [{
           title: '新建中心区',
-          name: '1',
           tabpage:{},
-          active:false
+          active:true
         }, {
           title: '企业A',
-          name: '2',
           tabpage: {},
           active:false
+        },{
+            title: '企业B',
+            tabpage: {},
+            active:false
         }],
-        tabIndex: 2,
         
       }
     },
@@ -43,19 +43,55 @@ export default {
 
     },
     methods: {
-      addTab(targetName) {
-        let newTabName = ++this.tabIndex + '';
-        this.editableTabs2.push({
-          title: 'New Tab',
-          name: newTabName,
-          content: 'New Tab content'
-        });
-        this.editableTabsValue2 = newTabName;
-      },
-      removeTab(target) {
-        let tabs = this.editableTabs2;
-        tabs.splice(Number(target),1);
-        this.editableTabs2 = tabs;
+
+        /**
+         * 删除tab标签页
+         * @param targetName
+         */
+      removeTab(targetName) {
+
+          // let index = Number(target);
+          // let tabs = this.editableTabs2;
+
+          // console.log(index,len)
+          // tabs[index].active = false;
+        // tabs[index + 1 ].active = true;
+        // tabs.splice(index,1);
+        // this.editableTabs2 = tabs;
+
+          let tabs = this.editableTabs2;
+          let len = tabs.length;
+          let active = Number(this.editableTabsValue);
+          let target = Number(targetName);
+          if(len === 1 && target ===0){//如果只有一个标签，不能删除
+              return;
+          }
+          console.log(active,target)
+          if (active === target) {//要删除的标签页和当前展示的标签页相同
+              let nextTab = tabs[active - 1];
+              tabs[active].active = false;
+              if (nextTab) {
+                  active = active-1;
+                  this.editableTabsValue = active + '';
+              }else{
+                  nextTab = tabs[active + 1];
+                  if(nextTab){
+                      active = active+1;
+                      this.editableTabsValue = (active-1) + '';
+                  }
+              }
+              tabs[active].active = true;
+
+          }else if(active < target){
+              this.editableTabsValue = active + '';
+          }else{
+              this.editableTabsValue = (active-1) + '';
+          }
+
+
+
+          this.editableTabs2 = tabs.filter((tab,index) => index!== target);
+          console.log(this.editableTabs2)
       },
       clickTab(target){
         console.log(target.index);

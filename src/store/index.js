@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import asideDataStore from './modules/store_asideDataStore.js'
+import mainDataStore from './modules/store_mainDataStore.js'
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
@@ -13,6 +14,7 @@ export default new Vuex.Store({
   actions: {
   },
   modules: {
-    asideDataStore
+    asideDataStore,
+    mainDataStore
   }
 })
