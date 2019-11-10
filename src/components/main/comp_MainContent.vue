@@ -7,7 +7,7 @@
 
 <script>
 
-import MainContentXiaqu from './MainContent_xiaqu.vue'
+import MainContentXiaqu from './comp_MainContent_xiaqu.vue'
 
 export default {
     name:'MainContent',

@@ -2,9 +2,9 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import './plugins/elements.js'
-import './plugins/amap.js'
-import './plugins/myEcharts.js'
+import './plugins/plugin_elements.js'
+import './plugins/plugin_amap.js'
+import './plugins/plugin_myEcharts.js'
 import 'element-ui/lib/theme-chalk/index.css';
 
 

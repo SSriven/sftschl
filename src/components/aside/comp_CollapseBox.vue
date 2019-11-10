@@ -3,14 +3,12 @@
 <template>
 <div id="collapseShow" style="height:100%;overflow:hidden;">
   <ul class="tab">
-    <li v-for='(item,index) in tabList' :key='index' :class='item.class' @click="qiehuan(index)">
-      {{item.name}}
+    <li v-for='(item,index) in tabList' :key='index' :class='item.className' @click="qiehuan(index)">
+      {{item.labelName}}
     </li>
   </ul>
   <GeminiScrollbar autoshow class='collapse' :style="styleObj">
-    <xia-qu v-show="shows[0]"></xia-qu>
-    <qi-ye v-show="shows[1]"></qi-ye>
-    <xing-zheng v-show="shows[2]"></xing-zheng>
+    <menu-tree></menu-tree>
   </GeminiScrollbar>
   
 </div>
@@ -18,29 +16,35 @@
 <script>
 import Vue from 'vue'
 import GeminiScrollbar from 'vue-gemini-scrollbar'
-import XiaQu from './XiaQu.vue'
-import QiYe from './QiYe.vue'
-import XingZheng from './XingZheng.vue'
+import MenuTree from './comp_MenuTree.vue'
+import { mapState,mapMutations ,mapActions } from 'vuex'
+
+// const { mapState, mapActions } = createNamespacedHelpers('../../store/modules')
 
 Vue.use(GeminiScrollbar)
   export default {
     name:"CollapseBox",
     data() {
       return {
-        
-        shows:[true,false,false],
-        tabList:[
-          {class:"tab-item is-active",name:"辖区企业数据",url:"/about/xiaqu"},
-          {class:"tab-item",name:"风险评级企业",url:"/about/qiye"},
-          {class:"tab-item",name:"行政执法",url:"/about/xingzheng"},
-        ],
-        styleObj:{height:document.documentElement.clientHeight+"px"},
-        
+        styleObj:{height:document.documentElement.clientHeight+"px"},  
       };
     },
 
     components:{
-      XiaQu,QiYe,XingZheng
+      MenuTree
+    },
+
+    computed:{
+      ...mapState('asideDataStore',{
+        tabList:state => state.tabList,
+        currentTab:state => state.currentTab
+      }),
+      ...mapState({
+        currentStatus:state => state.status
+      })
+    },
+    created () {
+      this.$store.dispatch('asideDataStore/getTabList')
     },
 
     methods:{
@@ -49,19 +53,22 @@ Vue.use(GeminiScrollbar)
        */
       qiehuan(index){
         var list = this.tabList;
-        var shows = this.shows;
         for(var i = 0; i < list.length; i++){
-          list[i].class="tab-item";
-          shows[i] = false;
+          list[i].className="tab-item";
         }
-        list[index].class = "tab-item is-active";
-        this.tabList = list;
-        shows[index] = true;
-        this.shows = shows;
+        list[index].className = "tab-item is-active";
+        this.changeTabList(list)
+        this.changeTabIndex(index+1);
+        this.getMenuTree(index+1);
       },
-      handleNodeClick(data) {
-        console.log(data);
-      },
+      ...mapActions('asideDataStore', [
+          'getMenuTree'
+      ]),
+      
+      ...mapMutations('asideDataStore',{
+        changeTabIndex:'changeCurrentTab',
+        changeTabList:'changeTabList'
+      })
       
     }
   };
@@ -99,14 +106,14 @@ Vue.use(GeminiScrollbar)
   }
   
   .el-collapse-item__header{
-    font-size: 16px;
-    padding-left: 20px;
-    font-weight: bold;
-    color:#303133;
+    font-size: 16px !important;
+    padding-left: 20px !important;
+    font-weight: bold !important;
+    color:#303133 !important;
   }
   .el-tree-node__label{
-    font-size: 13px;
-    color:#606266;
+    font-size: 13px !important;
+    color:#606266 !important;
   }
   /* vertical scrollbar track */
 .gm-scrollbar.-vertical {

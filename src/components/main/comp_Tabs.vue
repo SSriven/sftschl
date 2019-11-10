@@ -17,7 +17,7 @@
 
 <script>
 
-import MainContent from './MainContent.vue'
+import MainContent from './comp_MainContent.vue'
 
 export default {
     data() {

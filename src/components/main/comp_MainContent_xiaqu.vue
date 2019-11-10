@@ -39,10 +39,10 @@
 </template>
 
 <script>
-import DrawBar from '../echarts/DrawBar.vue'
-import Amap from '../Map/Map.vue'
-import DrawPie from '../echarts/DrawPie.vue'
-import MyTable from '../table/MyTable.vue'
+import DrawBar from '../echarts/comp_DrawBar.vue'
+import Amap from '../Map/comp_Map.vue'
+import DrawPie from '../echarts/comp_DrawPie.vue'
+import MyTable from '../table/comp_MyTable.vue'
 import detectElementResize from 'detect-element-resize'
 import $ from 'jquery'
 

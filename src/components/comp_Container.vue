@@ -1,6 +1,5 @@
 // 布局容器
 <template>
-    <div>
         <el-container>
             <el-aside width="220px" :style="styleObj2">
                 <CollapseBox></CollapseBox>
@@ -19,15 +18,14 @@
                 </GeminiScrollbar>
             </el-container>
         </el-container>
-    </div>
 </template>
 
 <script>
 import Vue from 'vue'
 import GeminiScrollbar from 'vue-gemini-scrollbar'
-import CollapseBox from './aside/CollapseBox.vue'
-import Header from './Header/Header.vue'
-import Tabs from './main/Tabs.vue'
+import CollapseBox from './aside/comp_CollapseBox.vue'
+import Header from './Header/comp_Header.vue'
+import Tabs from './main/comp_Tabs.vue'
 import $ from 'jquery'
 import detectElementResize from 'detect-element-resize'
 Vue.use(GeminiScrollbar)
@@ -65,7 +63,7 @@ export default {
         var that = this;
         if(!this.into){
           $(".el-aside").stop().animate({ //隐藏侧边栏
-            width: "0"
+            marginLeft:"-220px"
           }, "fast","swing",()=>{
             $(".el-header").stop().slideUp("fast");//隐藏header
             
@@ -77,7 +75,7 @@ export default {
           this.arrow = arrow;
         }else{
             $(".el-aside").stop().animate({ //显示侧边栏
-            width: "220px"
+            marginLeft:"0"
           }, "fast","swing",()=>{
             $(".el-header").stop().slideDown("fast");//显示header
             // console.log($(".el-container").height())
@@ -98,7 +96,7 @@ export default {
 .el-header {
     /* background-color: #F2F6FC; */
     color: #333;
-    border-left:1px solid #DCDFE6;
+    
     border-bottom:1px solid #DCDFE6;
   }
   
@@ -106,15 +104,13 @@ export default {
     background-color: #fdfdfd;
     color: #333;
     position:relative;
-    overflow: unset;
-    /* border-right:1px solid #ddd; */
+    overflow: unset !important;
   }
   
   .el-main {
     background-color: #fff;
     color: #333;
     text-align: center;
-    border-left:1px solid #DCDFE6;
     overflow: unset;
   }
   .collapse{
@@ -177,8 +173,8 @@ export default {
     right:-22px;
   }
   
-  body > .el-container {
-    margin-bottom: 40px;
+  .el-container {
+    border-left:1px solid #DCDFE6;
   }
   
   .el-container:nth-child(5) .el-aside,
