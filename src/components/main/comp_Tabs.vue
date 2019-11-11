@@ -4,11 +4,11 @@
         <el-tabs v-model="editableTabsValue"  type="card" closable @tab-remove="removeTab"
         @tab-click='clickTab'>
             <el-tab-pane
-                v-for="(item, index) in editableTabs2"
+                v-for="(item, index) in tabPageArr"
                 :key="index"
                 :label="item.title"
                 :name="index+''">    
-                <main-content  v-if="item.active"></main-content>
+                <main-content  v-if="index === Number(editableTabsValue)"></main-content>
             </el-tab-pane>
         </el-tabs>
         
@@ -18,29 +18,28 @@
 <script>
 
 import MainContent from './comp_MainContent.vue'
-
+import { mapState,mapMutations ,mapGetters ,mapActions} from 'vuex'
 export default {
     data() {
       return {
-          editableTabsValue:"0",
-        editableTabs2: [{
-          title: '新建中心区',
-          tabpage:{},
-          active:true
-        }, {
-          title: '企业A',
-          tabpage: {},
-          active:false
-        },{
-            title: '企业B',
-            tabpage: {},
-            active:false
-        }],
-        
+
       }
     },
     mounted(){
-
+        console.log(this.$store)
+    },
+    computed:{
+        ...mapState('mainDataStore',{
+            tabPageArr: state => state.editableTabs
+        }),
+        editableTabsValue:{
+            get(){
+                return this.$store.state.mainDataStore.editableTabsValue
+            },
+            set(value){
+                this.changeEditableTabsValue(value)
+            }
+        }
     },
     methods: {
 
@@ -50,16 +49,7 @@ export default {
          */
       removeTab(targetName) {
 
-          // let index = Number(target);
-          // let tabs = this.editableTabs2;
-
-          // console.log(index,len)
-          // tabs[index].active = false;
-        // tabs[index + 1 ].active = true;
-        // tabs.splice(index,1);
-        // this.editableTabs2 = tabs;
-
-          let tabs = this.editableTabs2;
+          let tabs = this.tabPageArr;
           let len = tabs.length;
           let active = Number(this.editableTabsValue);
           let target = Number(targetName);
@@ -72,36 +62,44 @@ export default {
               tabs[active].active = false;
               if (nextTab) {
                   active = active-1;
-                  this.editableTabsValue = active + '';
+                  this.changeEditableTabsValue(active);
               }else{
                   nextTab = tabs[active + 1];
                   if(nextTab){
                       active = active+1;
-                      this.editableTabsValue = (active-1) + '';
+                      this.changeEditableTabsValue(active-1);
                   }
               }
               tabs[active].active = true;
 
           }else if(active < target){
-              this.editableTabsValue = active + '';
+              this.changeEditableTabsValue(active);
           }else{
-              this.editableTabsValue = (active-1) + '';
+              this.changeEditableTabsValue(active-1);
           }
 
 
+          this.changeTabPageArr(tabs.filter((tab,index) => index!== target));
 
-          this.editableTabs2 = tabs.filter((tab,index) => index!== target);
-          console.log(this.editableTabs2)
       },
+        /**
+         * 点击标签页
+         * @param target
+         */
       clickTab(target){
-        console.log(target.index);
-        let tabs = this.editableTabs2;
-        tabs.forEach((tab,index)=>{
-          tab.active = false;
+        // let tabs = this.tabPageArr;
+            //   for(let i = 0; i < tabs.length; i++){
+            //       tabs[i].active = false;
+            //   }
+            //     tabs[Number(target.index)].active = true;
+            //   this.changeTabPageArr(tabs);
+          // console.log(this.tabPageArr,this.editableTabsValue)
+      },
+
+        ...mapMutations('mainDataStore',{
+            changeTabPageArr:'changeEditableTabs',
+            changeEditableTabsValue:'changeEditableTabsValue'
         })
-        tabs[Number(target.index)].active = true;
-        // tabs[Number(target.index)].tabpage = option;
-      }
     },
     components:{
         MainContent

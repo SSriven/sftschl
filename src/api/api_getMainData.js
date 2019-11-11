@@ -2,8 +2,10 @@
  * 获取主体内容api
  */
 
+
+
 export default {
-    getXianBarApi(backFun){
-        backFun(data)
+    getEditableTabsByAPI(backFun,title){
+        setTimeout(()=>backFun({title}),200);
     }
 }

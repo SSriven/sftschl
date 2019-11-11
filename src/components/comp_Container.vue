@@ -64,10 +64,8 @@ export default {
         if(!this.into){
           $(".el-aside").stop().animate({ //隐藏侧边栏
             marginLeft:"-220px"
-          }, "fast","swing",()=>{
+          }, "fast","swing" );
             $(".el-header").stop().slideUp("fast");//隐藏header
-            
-          } );
 
           var arrow = this.arrow;
           arrow = ["collapse-out","el-icon-d-arrow-right"];
@@ -76,12 +74,8 @@ export default {
         }else{
             $(".el-aside").stop().animate({ //显示侧边栏
             marginLeft:"0"
-          }, "fast","swing",()=>{
+          }, "fast","swing" );
             $(".el-header").stop().slideDown("fast");//显示header
-            // console.log($(".el-container").height())
-            
-          } );
-
 
           var arrow = this.arrow;
           arrow = ["collapse-into","el-icon-d-arrow-left"];
