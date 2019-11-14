@@ -57,9 +57,9 @@ Vue.use(GeminiScrollbar)
           list[i].className="tab-item";
         }
         list[index].className = "tab-item is-active";
-        this.changeTabList(list)
-        this.changeTabIndex(index+1);
-        this.getMenuTree(index+1);
+        this.changeTabList(list);
+        this.changeTabIndex(index+'');
+        this.getMenuTree(index+'');
       },
       ...mapActions('asideDataStore', [
           'getMenuTree'

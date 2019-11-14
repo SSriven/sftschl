@@ -6,8 +6,8 @@ import getMainData from "../../api/api_getMainData";
 
 // initial state
 const state = {
-    editableTabs: [],
-    editableTabsValue:'0'
+    editableTabs: [],//标签页数组
+    editableTabsValue:'0',//当前显示的标签页
 };
 
 // getters
@@ -18,10 +18,11 @@ const getters = {
 };
 // actions
 const actions = {
-    getEditableTabs({commit},title){
+    getEditableTabs({commit},obj){
+        // console.log(title,id)
         getMainData.getEditableTabsByAPI(data => {
             commit('addEditableTabs', data);
-        },title)
+        },obj)
     }
 };
 

@@ -8,7 +8,7 @@ const state = {
     tabList:[],
       //侧边栏折叠菜单
     menuTree:[],
-    currentTab:1
+    currentTab:'0'
 };
 
 // getters
