@@ -2,7 +2,7 @@
  * 获取主体内容api
  */
 
-let option = {
+let optionBar = {
     color:['#E062AE','#67E0E3','#FFDB5C','#32C5E9','#37A2DA','#E690D1','#ff9f7f','#9FE6B8',],
     tooltip : {
         trigger: 'axis',
@@ -121,11 +121,142 @@ let option = {
         //   }
     ],
 
-}
+};
+let optionPie1 = {
+    color:['#37A2DA','#32C5E9','#67E0E3','#9FE6B8','#FFDB5C','#ff9f7f','#fb7293','#E062AE','#E690D1'],
+    tooltip: {
+        trigger: 'item',
+        formatter: "{a} <br/>{b}: {c} ({d}%)"
+    },
+    series: [
+
+        {
+            name:'访问来源',
+            type:'pie',
+            radius : [0, "50%"],
+            label: {
+                normal: {
+                    formatter: '{b|{b}\n}{d}%  ',
+                    rich: {
+                        b: {
+                            fontSize: 13,
+                            lineHeight: 16
+                        },
+                        per: {
+                            padding: [2, 4],
+                            borderRadius: 2
+                        }
+                    }
+                }
+            },
+            data:[
+                {value:335, name:'直达'},
+                {value:310, name:'邮件营销'},
+                {value:234, name:'联盟广告'},
+                {value:135, name:'视频广告'},
+                {value:1048, name:'百度'},
+                {value:251, name:'谷歌'},
+                {value:147, name:'必应'},
+                {value:102, name:'其他'}
+            ]
+        }
+    ]
+};
+let optionPie2 = {
+    color:['#37A2DA','#32C5E9','#67E0E3','#9FE6B8','#FFDB5C','#ff9f7f','#fb7293','#E062AE','#E690D1'],
+    tooltip: {
+        trigger: 'item',
+        formatter: "{a} <br/>{b}: {c} ({d}%)"
+    },
+    series: [
+
+        {
+            name:'访问来源',
+            type:'pie',
+            radius : [0, "50%"],
+            label: {
+                normal: {
+                    formatter: '{b|{b}\n}{d}%  ',
+                    rich: {
+                        b: {
+                            fontSize: 13,
+                            lineHeight: 16
+                        },
+                        per: {
+                            padding: [2, 4],
+                            borderRadius: 2
+                        }
+                    }
+                }
+            },
+            data:[
+                {value:1048, name:'百度'},
+                {value:251, name:'谷歌'},
+                {value:102, name:'其他'}
+            ]
+        }
+    ]
+};
+let optionPie3 = {
+    color:['#37A2DA','#32C5E9','#67E0E3','#9FE6B8','#FFDB5C','#ff9f7f','#fb7293','#E062AE','#E690D1'],
+    tooltip: {
+        trigger: 'item',
+        formatter: "{a} <br/>{b}: {c} ({d}%)"
+    },
+    series: [
+
+        {
+            name:'访问来源',
+            type:'pie',
+            radius : [0, "50%"],
+            label: {
+                normal: {
+                    formatter: '{b|{b}\n}{d}%  ',
+                    rich: {
+                        b: {
+                            fontSize: 13,
+                            lineHeight: 16
+                        },
+                        per: {
+                            padding: [2, 4],
+                            borderRadius: 2
+                        }
+                    }
+                }
+            },
+            data:[
+                {value:335, name:'直达'},
+                {value:310, name:'邮件营销'},
+                {value:234, name:'联盟广告'},
+                {value:135, name:'视频广告'}
+            ]
+        }
+    ]
+};
 
 export default {
     getEditableTabsByAPI(backFun,obj){
         setTimeout(() => backFun(obj),200);
     },
+
+    getTabContentBarDataByAPI(backFun){
+        // setTimeout(()=>backFun(optionBar),200);
+        backFun(optionBar);
+    },
+
+    getTabContentPie1DataByAPI(backFun){
+        // setTimeout(()=>backFun(optionPie1),200);
+        backFun(optionPie1);
+    },
+
+    getTabContentPie2DataByAPI(backFun){
+        // setTimeout(()=>backFun(optionPie2),200);
+        backFun(optionPie2)
+    },
+
+    getTabContentPie3DataByAPI(backFun){
+        // setTimeout(()=>backFun(optionPie3),200);
+        backFun(optionPie3)
+    }
 
 }

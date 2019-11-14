@@ -6,6 +6,7 @@
 <script>
 
 import detectElementResize from 'detect-element-resize'
+import { mapState,mapMutations ,mapGetters ,mapActions} from 'vuex'
 
 export default {
     name:'DrawBar',
@@ -30,15 +31,18 @@ export default {
             
         })
     },
+    computed:{
+        ...mapGetters('mainDataStore',{
+            option:'currentTabContentBar'
+        })
+    },
     methods:{
         draw(){
             
-            this.myBar.setOption(option);
+            this.myBar.setOption(this.option);
             
         }
     },
-    props:{
-        option:Object
-    }
+
 }
 </script>

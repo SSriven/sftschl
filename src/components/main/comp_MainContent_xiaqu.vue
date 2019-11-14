@@ -26,7 +26,7 @@
             </el-col>
             <el-col :span="12">
                 <div class="item-box item-box-middle-2" >
-                    <draw-bar ></draw-bar>
+                    <draw-bar></draw-bar>
                 </div>
             </el-col>
             <el-col :span="6">
@@ -44,6 +44,7 @@ import Amap from '../Map/comp_Map.vue'
 import DrawPie from '../echarts/comp_DrawPie.vue'
 import MyTable from '../table/comp_MyTable.vue'
 import detectElementResize from 'detect-element-resize'
+import { mapState,mapMutations ,mapGetters ,mapActions} from 'vuex'
 import $ from 'jquery'
 
 export default {
@@ -56,13 +57,17 @@ export default {
             item_box_styleObj:{height:(document.documentElement.clientHeight-156) + 'px'}
         }
     },
+    computed:{
+
+    },
     mounted(){
-        var that = this;
-        var main = document.getElementById('my_header');
+        console.log(this.$store.getters['mainDataStore/currentTabContent']);//访问modules中的getters的正确方法
+        let that = this;
+        let main = document.getElementById('my_header');
         detectElementResize.addResizeListener(main,function(){
-            var h = main.style.display;
+            let h = main.style.display;
             
-            if(h == 'none'){
+            if(h === 'none'){
                 that.item_box_styleObj = {height:(document.documentElement.clientHeight-96) + 'px'}
                 $("#main_gs").css({height:document.documentElement.clientHeight+'px'})
             }
