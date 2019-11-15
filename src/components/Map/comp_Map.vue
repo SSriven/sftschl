@@ -1,6 +1,6 @@
 <template>
-    <div class="amap-page-container" id='amapBox'>
-        <el-amap vid="amapDemo" :zoom="zoom" :plugin="plugin"  class="amap-demo" id="amap">
+    <div class="amap-page-container" :id='amapBox_id'>
+        <el-amap :vid="amap_id" :zoom="zoom" :plugin="plugin"  class="amap-demo" :id="amap_id">
             <el-amap-marker v-for="(marker,index) in markers"
                             :key="index"
                             :position="marker.position"
@@ -14,10 +14,10 @@
   </template>
 
   <style>
-  #amapBox{
+  .amap-page-container{
     height:100%;
   }
-    #amap {
+    .amap-demo {
       /* height: 90% !important; */
       max-width:625px;
       max-height:270px;
@@ -31,6 +31,8 @@
         name:"Amap",
       data: function() {
         return {
+            amap_id:"amap_"+Math.round(Math.random()*100000) + new Date().getTime(),
+            amapBox_id:'amapBox_'+Math.round(Math.random()*100000) + new Date().getTime(),
             count: 1,
             zoom: 4,
             i:0,

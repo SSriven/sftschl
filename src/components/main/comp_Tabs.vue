@@ -8,7 +8,7 @@
                 :key="index"
                 :label="item.title"
                 :name="index+''">    
-                <main-content  v-if="index === Number(editableTabsValue)" :mainType="item.type"></main-content>
+                <main-content  v-show="index === Number(editableTabsValue)" :mainType="item.type"></main-content>
             </el-tab-pane>
         </el-tabs>
         
@@ -26,12 +26,13 @@ export default {
       }
     },
     mounted(){
-        console.log(this.$store)
+
     },
     computed:{
         ...mapState('mainDataStore',{
             tabPageArr: state => state.editableTabs
         }),
+        //对于使用v-model绑定的数据，需要添加set和get方法
         editableTabsValue:{
             get(){
                 return this.$store.state.mainDataStore.editableTabsValue
@@ -56,7 +57,7 @@ export default {
           if(len === 1 && target ===0){//如果只有一个标签，不能删除
               return;
           }
-          console.log(active,target)
+          console.log(active,target);
           if (active === target) {//要删除的标签页和当前展示的标签页相同
               let nextTab = tabs[active - 1];
               tabs[active].active = false;
@@ -87,13 +88,7 @@ export default {
          * @param target
          */
       clickTab(target){
-        // let tabs = this.tabPageArr;
-            //   for(let i = 0; i < tabs.length; i++){
-            //       tabs[i].active = false;
-            //   }
-            //     tabs[Number(target.index)].active = true;
-            //   this.changeTabPageArr(tabs);
-          // console.log(this.tabPageArr,this.editableTabsValue)
+
       },
 
         ...mapMutations('mainDataStore',{

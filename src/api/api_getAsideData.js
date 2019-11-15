@@ -542,13 +542,14 @@ treeData:[{
      */
     getMenuTree(cb,index){
         let data = null;
-        if(index === '0')
-            data = _menuTree3;
-        else if(index === '1')
-            data = _menuTree2;
-        else
-            data = _menuTree1;
-        setTimeout(() => cb(data),100)
+        switch(index){
+          case '0':data = _menuTree3;break;
+          case '1':data = _menuTree2;break;
+          case '2':data = _menuTree1;break;
+          default:data = null;
+        }
+      cb(data)
+        // setTimeout(() => cb(data),100)
     },
     
   }

@@ -1,10 +1,7 @@
-//社区主体布局
+//风险评级企业
 <template>
     <div :style="item_box_styleObj">
         风险评级企业
-
-
-
     </div>
 </template>
 

@@ -4,7 +4,7 @@
         <el-row :gutter="20" >
             <el-col :span="6">
                 <div class='item-box item-box-left' >
-                    <draw-pie :id='main_pie_3'></draw-pie>
+                    <draw-pie :index="index1"></draw-pie>
                 </div>
             </el-col>
             <el-col :span="12">
@@ -14,7 +14,7 @@
             </el-col>
             <el-col :span="6">
                 <div class="item-box item-box-right" >
-                    <draw-pie :id='main_pie_4'></draw-pie>
+                    <draw-pie :index="index2"></draw-pie>
                 </div>
             </el-col> 
         </el-row>
@@ -31,7 +31,7 @@
             </el-col>
             <el-col :span="6">
                 <div class='item-box item-box-right-2' >
-                    <draw-pie :id='main_pie_2'></draw-pie>
+                    <draw-pie :index="index3"></draw-pie>
                 </div>
             </el-col>  
         </el-row>
@@ -50,9 +50,9 @@ import $ from 'jquery'
 export default {
     data(){
         return {
-            main_pie_1:"main_pie_1",
-            main_pie_2:"main_pie_2",
-            main_pie_3:"main_pie_3",
+            index1:'1',
+            index2:'2',
+            index3:'3',
             main_pie_4:"main_pie_4",
             item_box_styleObj:{height:(document.documentElement.clientHeight-156) + 'px'}
         }
@@ -61,20 +61,23 @@ export default {
 
     },
     mounted(){
-        console.log(this.$store.getters['mainDataStore/currentTabContent']);//访问modules中的getters的正确方法
+        //console.log(this.$store.getters['mainDataStore/currentTabContent']);//访问modules中的getters的正确方法
         let that = this;
         let main = document.getElementById('my_header');
+        /**
+         * 监听header组件是否隐藏
+         */
         detectElementResize.addResizeListener(main,function(){
             let h = main.style.display;
             
-            if(h === 'none'){
-                that.item_box_styleObj = {height:(document.documentElement.clientHeight-96) + 'px'}
-                $("#main_gs").css({height:document.documentElement.clientHeight+'px'})
+            if(h === 'none'){   //header组件隐藏
+                that.item_box_styleObj = {height:(document.documentElement.clientHeight-96) + 'px'};
+                $("#main_gs").css({height:document.documentElement.clientHeight+'px'});//全屏显示
             }
                 
-            else{
-                $("#main_gs").css({height:document.documentElement.clientHeight-60+'px'})
-                that.item_box_styleObj = {height:(document.documentElement.clientHeight-156) + 'px'}
+            else{//header组件显示
+                $("#main_gs").css({height:document.documentElement.clientHeight-60+'px'});
+                that.item_box_styleObj = {height:(document.documentElement.clientHeight-156) + 'px'};
             }
                 
             

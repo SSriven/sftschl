@@ -5,46 +5,59 @@
 <script>
 
 import detectElementResize from 'detect-element-resize'
+import getMainData from "../../api/api_getMainData";
 import { mapState,mapMutations ,mapGetters ,mapActions} from 'vuex'
-import $ from 'jquery'
 export default {
     name:"DrawPie",
+    data(){
+        return{
+            id:"echarts_pie"+Math.round(Math.random()*100000) + new Date().getTime()
+        }
+    },
     mounted(){
         let that = this;
-        console.log(this.pie1);
         let main = document.getElementById(this.id);
         this.myPie = this.$echarts.init(main);
-        if(this.id === 'main_pie_3'){
-            this.drawPie(this.pie1);
-        }else if(this.id === 'main_pie_4'){
-            this.drawPie(this.pie2);
-        }else{
-            this.drawPie(this.pie3);
+        switch (this.index) {
+            case '1':this.judgeAndGetPieData(this,1);break;
+            case '2':this.judgeAndGetPieData(this,2);break;
+            case '3':this.judgeAndGetPieData(this,3);break;
         }
 
 
-
-            
         detectElementResize.addResizeListener(main,function(){
             if(that.timer)
                 clearTimeout(that.timer);
             that.timer = setTimeout(()=>{
                 that.myPie.resize();
             },200)
-            
+
         })
     },
     methods:{
-        drawPie(option){
-
-            this.myPie.setOption(option);
+        drawPie(data){
+            this.myPie.setOption(data);
+        },
+        ...mapMutations('mainDataStore',{
+            setTabContentPie_type1:'setTabContentPie_type1'
+        }),
+        judgeAndGetPieData(that,i){
+            if(this.pieObj(i) === null){
+                getMainData.getTabContentPie_type1DataByAPI( data => {
+                    that.setTabContentPie_type1({data:data,index:i});
+                    that.drawPie(data);
+                    console.log(i + '' + 1);
+                },i);
+            }else{
+                that.pieData = this.pieObj(i);
+                that.drawPie(data);
+                console.log(i + '' + 2);
+            }
         }
     },
     computed:{
         ...mapGetters('mainDataStore',{
-            pie1:'currentTabContentPie1',
-            pie2:'currentTabContentPie2',
-            pie3:'currentTabContentPie3'
+            pieObj:'currentTabContentPie'
         })
     },
     watch:{
@@ -55,6 +68,6 @@ export default {
             deep:true//深度监听
         }
     },
-    props:['id']
+    props:['index']
 }
 </script>

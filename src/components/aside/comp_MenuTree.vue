@@ -45,22 +45,30 @@ export default {
       })
     },
     methods: {
+        /**
+         * 点击菜单选项，增加一个标签页
+         * @param data
+         */
       handleNodeClick(data){
           let i = this.tabPageArr.findIndex((value,index,arr) => {
               // console.log(value.id);
               return value.id === data.id;
           });
           console.log(data);
-          if(i === -1){
+          if(i === -1){//标签页不存在
               if(data.type){
-                  this.getEditableTabs({title:data.label,id:data.id,type:data.type});//增加一个标签
-                  this.changeEditableTabsValue(this.tabPageArr.length);//打开刚刚增加的标签
+                  this.addEditableTabs({title:data.label,id:data.id,type:data.type});//增加一个标签
+                  this.changeEditableTabsValue(this.tabPageArr.length-1);//打开刚刚增加的标签
               }
-          }else{
+          }else{//标签页存在
               this.changeEditableTabsValue(i);//打开已存在的标签
           }
           console.log(this.tabPageArr,this.value);
       },
+        /**
+         * 点击菜单目录选项，增加一个标签页
+         * @param index
+         */
         clickCollapseItem(index){
             let i = Number(index);
             let that = this;
@@ -68,13 +76,13 @@ export default {
                 // console.log(value.id);
                 return value.id === that.currentTab + '' + i;
             });
-            if(j === -1){
+            if(j === -1){//标签页不存在
                 if(that.currentTab !== '2'){
-                    this.getEditableTabs({title:this.data[i].label,id:that.currentTab + '' + i,type:(Number(that.currentTab)+1) + ''});//增加一个标签
-                    this.changeEditableTabsValue(this.tabPageArr.length);//打开刚刚增加的标签
+                    this.addEditableTabs({title:this.data[i].label,id:that.currentTab + '' + i,type:(Number(that.currentTab)+1) + ''});//增加一个标签
+                    this.changeEditableTabsValue(this.tabPageArr.length-1);//打开刚刚增加的标签
                 }
 
-            }else{
+            }else{//标签页存在
                 this.changeEditableTabsValue(j);//打开刚刚增加的标签
             }
 
@@ -84,7 +92,8 @@ export default {
         }),
         ...mapMutations('mainDataStore',{
             changeEditableTabs:'changeEditableTabs',
-            changeEditableTabsValue:'changeEditableTabsValue'
+            changeEditableTabsValue:'changeEditableTabsValue',
+            addEditableTabs:'addEditableTabs'
         })
     }
     

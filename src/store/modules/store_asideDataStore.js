@@ -8,22 +8,29 @@ const state = {
     tabList:[],
       //侧边栏折叠菜单
     menuTree:[],
-    currentTab:'0'
+    currentTab:'0',//当前显示的树状折叠菜单
 };
 
 // getters
 const getters = {
-  // menuTreeData:state =>{
-  //   return state.currentTab == 1 ? state.menuTrue1 : (state.currentTab == 2 ? state.menuTrue2 : state.menuTrue3)
-  // }
+
 };
 // actions
 const actions = {
+  /**
+   * 获取侧边栏tab标签页的标题
+   * @param commit
+   */
   getTabList ({ commit }) {
     getAsideData.getTabList(tabList => {
       commit('setTabList', tabList)
     })
   },
+  /**
+   * 获取侧边栏树状折叠菜单数据
+   * @param commit
+   * @param currentTab
+   */
   getMenuTree ({ commit },currentTab) {
     getAsideData.getMenuTree((menuTree) => {
       commit('setMenuTree', menuTree)
@@ -33,9 +40,19 @@ const actions = {
 
 // mutations
 const mutations = {
+  /**
+   * 显示currentTab所对应的菜单
+   * @param state
+   * @param currentTab
+   */
   changeCurrentTab(state,currentTab){
     state.currentTab = currentTab;
   },
+  /**
+   * 更新tabList
+   * @param state
+   * @param newTabList
+   */
   changeTabList(state,newTabList){
       state.tabList = newTabList
   },

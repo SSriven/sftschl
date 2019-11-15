@@ -40,17 +40,7 @@ export default {
         }
     },
     mounted(){
-      // var that = this;
-      // var main = document.getElementById("my_header");
-      // detectElementResize.addResizeListener(main,function(){
-      //       var h = $(".el-header");
-      //       console.log(h)
-      //       // if(h == 0 || h == 60)
-      //       //   that.styleObj = {
-      //       //     height:document.documentElement.clientHeight+"px"
-      //       //   }
-            
-      //   })
+
     },
     components:{
         CollapseBox,Header,Tabs

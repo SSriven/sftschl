@@ -1,10 +1,7 @@
-//社区主体布局
+//行政执法
 <template>
     <div :style="item_box_styleObj">
         行政执法
-
-
-
     </div>
 </template>
 

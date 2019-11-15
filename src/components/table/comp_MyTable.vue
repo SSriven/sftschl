@@ -1,6 +1,6 @@
 <template>
   <el-table
-    :data="tableData"
+    :data="tableData.row"
     style="width: 100%"
     height="300"
     border
@@ -10,83 +10,38 @@
     >
     <el-table-column
       type="index"
-      style="width: 10%;height:30px;"
+
       label="序号"
       align='center'>
     </el-table-column>
     <el-table-column
-      prop="date"
-      label="风险值"
+      :prop="item.prop"
+      :label="item.label"
       sortable
-      style="width: 30%;height:30px;"
-      align='center'>
-    </el-table-column>
-    <el-table-column
-      prop="name"
-      label="企业"
-      sortable
-      style="width: 30%;height:30px;"
-      align='center'>
-    </el-table-column>
-    <el-table-column
-      prop="address"
-      label="第三方"
-      style="width: 30%;height:30px;"
-      sortable
-      :formatter="formatter"
+      v-for="(item,index) in tableData.column"
+      :key="index"
       align='center'>
     </el-table-column>
   </el-table>
 </template>
 
 <script>
+  import getMainData from "../../api/api_getMainData";
+  import { mapState,mapMutations ,mapGetters ,mapActions} from 'vuex'
   export default {
       name:"MyTable",
     data() {
       return {
-        tableData: [{
-            id:"1",
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
-        }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
-        }, {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        },{
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        },{
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        },{
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        },{
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        },{
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        },{
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        }]
+        tableData:{row:null,column:null}
       }
+    },
+
+    mounted(){
+        let that = this;
+      getMainData.getTabContentTable_type1DataByAPI(data => {
+        that.tableData = data;
+        that.setTabContentTable_type1(data);
+      })
     },
     methods: {
       formatter(row, column) {
@@ -94,7 +49,10 @@
       },
       handleCurrentChange(row,colum,e){
           console.log(row,colum,e);
-      }
+      },
+      ...mapMutations('mainDataStore',{
+        setTabContentTable_type1:'setTabContentTable_type1'
+      })
     }
   }
 </script>

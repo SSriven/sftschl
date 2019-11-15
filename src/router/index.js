@@ -4,9 +4,10 @@ import Home from '../views/view_Home.vue'
 import GovStaff from '../views/view_GovStaff.vue'
 
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
+
   {
     path: '/',
     name: 'govstaff',
@@ -16,13 +17,18 @@ const routes = [
     path: '/govstaff',
     name: 'govstaff',
     component: GovStaff
+  },
+  {
+    path: '/home',
+    name: 'home',
+    component: Home
   }
-]
+];
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
-})
+});
 
 export default router
