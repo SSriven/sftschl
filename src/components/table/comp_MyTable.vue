@@ -1,7 +1,16 @@
 <template>
+  <div>
+<!--  <el-select v-model="value" clearable filterable placeholder="请选择" size="mini">-->
+<!--    <el-option-->
+<!--            v-for="(item,index) in tableData.row"-->
+<!--            :key="index"-->
+<!--            :label="item.enterprise"-->
+<!--            :value="index">-->
+<!--    </el-option>-->
+<!--  </el-select>-->
   <el-table
     :data="tableData.row"
-    style="width: 100%"
+    style="width: 100%;"
     height="300"
     border
     highlight-current-row
@@ -23,6 +32,7 @@
       align='center'>
     </el-table-column>
   </el-table>
+  </div>
 </template>
 
 <script>
@@ -32,7 +42,8 @@
       name:"MyTable",
     data() {
       return {
-        tableData:{row:null,column:null}
+        tableData:{row:null,column:null},
+        value:''
       }
     },
 

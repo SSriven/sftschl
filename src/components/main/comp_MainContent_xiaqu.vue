@@ -1,6 +1,6 @@
 //县/辖区主体布局
 <template>
-    <div :style="item_box_styleObj">
+    <div :style="item_box_styleObj" class="main_content">
         <el-row :gutter="20" >
             <el-col :span="6">
                 <div class='item-box item-box-left' >
@@ -10,6 +10,14 @@
             <el-col :span="12">
                 <div class='item-box item-box-middle' >
                     <Amap></Amap>
+                    <ul class="amap-flag">
+                        <li><i class="myiconuniE900" style="color:red"></i>&nbsp;&nbsp;重大风险</li>
+                        <li><i class="myiconuniE900" style="color:orange"></i>&nbsp;&nbsp;较大风险</li>
+                        <li><i class="myiconuniE900" style="color:yellow"></i>&nbsp;&nbsp;一般风险</li>
+                        <li><i class="myiconuniE900" style="color:blue"></i>&nbsp;&nbsp;低风险</li>
+                        <li>企业：89</li>
+                        <li>隐患：4</li>
+                    </ul>
                 </div>
             </el-col>
             <el-col :span="6">
@@ -60,8 +68,18 @@ export default {
     computed:{
 
     },
+    beforeCreate(){
+        // this.loading = this.$loading.service({
+        //     target:document.querySelector(".main_content"),
+        //     text: '加载中',
+        //     spinner: 'el-icon-loading',
+        //     background: 'rgba(0, 0, 0, 0.7)'
+        // });
+    },
     mounted(){
         //console.log(this.$store.getters['mainDataStore/currentTabContent']);//访问modules中的getters的正确方法
+
+        // this.loading.close();
         let that = this;
         let main = document.getElementById('my_header');
         /**

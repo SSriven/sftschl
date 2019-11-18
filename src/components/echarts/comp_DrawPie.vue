@@ -6,17 +6,26 @@
 
 import detectElementResize from 'detect-element-resize'
 import getMainData from "../../api/api_getMainData";
-import { mapState,mapMutations ,mapGetters ,mapActions} from 'vuex'
+import { mapState,mapMutations ,mapGetters ,mapActions} from 'vuex';
 export default {
     name:"DrawPie",
     data(){
         return{
-            id:"echarts_pie"+Math.round(Math.random()*100000) + new Date().getTime()
+            id:"echarts_pie"+Math.round(Math.random()*100000) + new Date().getTime(),
         }
     },
     mounted(){
+
         let that = this;
         let main = document.getElementById(this.id);
+        detectElementResize.addResizeListener(main,function(){
+            if(that.timer)
+                clearTimeout(that.timer);
+            that.timer = setTimeout(()=>{
+                that.myPie.resize();
+            },200)
+
+        });
         this.myPie = this.$echarts.init(main);
         switch (this.index) {
             case '1':this.judgeAndGetPieData(this,1);break;
@@ -25,14 +34,7 @@ export default {
         }
 
 
-        detectElementResize.addResizeListener(main,function(){
-            if(that.timer)
-                clearTimeout(that.timer);
-            that.timer = setTimeout(()=>{
-                that.myPie.resize();
-            },200)
 
-        })
     },
     methods:{
         drawPie(data){

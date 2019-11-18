@@ -1,6 +1,6 @@
 //主要内容组件
 <template>
-    <div class="main-content">
+    <div class="main-content" id="main_content">
         <main-content-xiaqu v-if="mainType === '1'"></main-content-xiaqu>
         <main-content-shequ v-else-if="mainType === '4'"></main-content-shequ>
         <main-content-fxpjqy v-else-if="mainType === '2'"></main-content-fxpjqy>
@@ -21,6 +21,9 @@ export default {
         return {
             
         }
+    },
+    mounted(){
+
     },
     components:{
         MainContentXiaqu,MainContentShequ,MainContentFxpjqy,MainContentXzzf

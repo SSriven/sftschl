@@ -1,6 +1,6 @@
 // 布局容器
 <template>
-        <el-container>
+        <el-container id="el_container">
             <el-aside width="220px" :style="styleObj2">
                 <CollapseBox></CollapseBox>
                 <div :into="into" :class="arrow[0]" @click="collapseShow">
@@ -28,7 +28,8 @@ import Header from './Header/comp_Header.vue'
 import Tabs from './main/comp_Tabs.vue'
 import $ from 'jquery'
 import detectElementResize from 'detect-element-resize'
-Vue.use(GeminiScrollbar)
+Vue.use(GeminiScrollbar);
+let loading;
 export default {
     name:"Container",
     data(){
@@ -36,11 +37,19 @@ export default {
             into:false,//侧边栏是否隐藏
             arrow:["collapse-into","el-icon-d-arrow-left"],
             styleObj:{height:document.documentElement.clientHeight-60+"px"},
-            styleObj2:{height:document.documentElement.clientHeight+"px"}
+            styleObj2:{height:document.documentElement.clientHeight+"px"},
         }
     },
+    beforeCreate(){
+        loading = this.$loading.service({
+            lock: true,
+            text: '加载中',
+            spinner: 'el-icon-loading',
+            background: 'rgba(255, 255, 255, 0.7)'
+        });
+    },
     mounted(){
-
+        loading.close();
     },
     components:{
         CollapseBox,Header,Tabs

@@ -1,12 +1,12 @@
 <template>
     <div class="amap-page-container" :id='amapBox_id'>
-        <el-amap :vid="amap_id" :zoom="zoom" :plugin="plugin"  class="amap-demo" :id="amap_id">
+        <el-amap :vid="amap_id" :zoom="zoom" :plugin="plugin"  class="amap-demo" :id="amap_id" :center="center">
             <el-amap-marker v-for="(marker,index) in markers"
                             :key="index"
                             :position="marker.position"
-                            :content="marker.content"
+                            :content="getContentHtml(marker.content,marker.level)"
                             visible="true"
-                            draggable="false"
+                            :offset="[-30,-33]"
                             :vid="index">
             </el-amap-marker>
         </el-amap>
@@ -18,15 +18,14 @@
     height:100%;
   }
     .amap-demo {
-      /* height: 90% !important; */
-      max-width:625px;
-      max-height:270px;
+       height: 90% !important;
+      /*width:625px;*/
+      /*max-height:270px;*/
       margin:0 auto;
     }
   </style>
 
   <script>
-
     export default {
         name:"Amap",
       data: function() {
@@ -34,30 +33,40 @@
             amap_id:"amap_"+Math.round(Math.random()*100000) + new Date().getTime(),
             amapBox_id:'amapBox_'+Math.round(Math.random()*100000) + new Date().getTime(),
             count: 1,
-            zoom: 4,
+            zoom: 12,
             i:0,
-            // center: [121.5273285, 31.21515044],
+            center: [115.8309967752457,28.650550306535255],
             // 定义点坐标组数组
             markerGroups: [
                 [
                     {
-                        position: [113.78109,35.19799],
-                        content: this.getContentHtml('郑州'),
+                        position: [115.91875328979495,28.661433713542777],
+                        level:4,
+                        content: '南昌',
+                        contry: '中国',
+                    },
+                    {
+                        position: [115.8309967752457,28.650550306535255],
+                        level:1,
+                        content: '南昌航空大学D栋',
+                        contry: '中国',
+                    },
+                    {
+                        position: [115.8035148616791, 28.654876501958107],
+                        level:2,
+                        content: '南昌大学',
                         contry: '中国'
                     },
                     {
-                        position: [116.30621, 39.976121],
-                        content: this.getContentHtml('北京'),
+                        position: [115.82109405956271,28.667562193725143],
+                        level:3,
+                        content: '江西科技师范大学',
                         contry: '中国'
                     },
                     {
-                        position: [108.909426,34.513185],
-                        content: this.getContentHtml('西安'),
-                        contry: '中国'
-                    },
-                    {
-                        position: [118.919945,32.374795],
-                        content: this.getContentHtml('南京'),
+                        position: [115.85052325687411,28.656034517458934],
+                        level:4,
+                        content: '南昌之星',
                         contry: '中国'
                     }
                 ],
@@ -92,14 +101,26 @@
       },
 
       methods: {
-          getContentHtml(content) {
+          getContentHtml(content,level) {
               // 未避免被简书转化未设置img的src属性
-              return '<p>' +
-                  '<i class="el-icon-map-location" style="color:red"></i>' +
-                  '</p>' +
-                  '<p style="font-size: 13px;margin-left:  -25px;color: yellow;background-color: red;text-align: center;">' +
-                  ''+ content + '' +
-                  '</p>';
+              // return '<i class="myiconuniE900" style="color:red"></i> '+
+              //     '<p style="font-size: 13px;margin-left:  -25px;color: yellow;background-color: red;text-align: center;">' +
+              //     ''+ content + '' +
+              //     '</p>';
+              let color = "";
+              if(level === 1)
+                  color = "red";
+              else if(level === 2)
+                  color = "orange";
+              else if(level === 3)
+                  color = "yellow";
+              else
+                  color = "blue";
+              let htmlStr = `<div class="addr-flag">
+                                    <i class="addr-flag-icon myiconuniE900" style="color: ${color};"></i>
+                                </div>
+                                <div class="addr-flag-text">${content}</div>`;
+              return htmlStr;
           }
       },
 
@@ -108,10 +129,6 @@
             markers: function () {
                 // `this` points to the vm instance
                 return this.markerGroups[this.i];
-            },
-            // 当前地图中心getter方法
-            center: function () {
-                return this.markerGroups[this.i][0].position;
             },
             // 当前国家getter方法
             contry: function () {

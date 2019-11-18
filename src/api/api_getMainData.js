@@ -429,6 +429,7 @@ export default {
                 }
             ]
         }),200);
+
     },
 
     getTabContentPie2_type1DataByAPI(backFun){
@@ -527,41 +528,32 @@ export default {
         setTimeout(()=>callBack({
             column:[
                 {prop:"riskValue",label:'风险值'},
-                {prop:"enterprise",label:'企业'},
-                {prop:"thirdParty",label:'第三方'},
+                {prop:"enterprise",label:'企业'}
             ],
             row:[{
                 enterprise: '企业A',
-                riskValue: Math.round(Math.random()*1000),
-                thirdParty: '上海市普陀区金沙江路 1518 弄'
+                riskValue: Math.round(Math.random()*1000)
             },{
                 enterprise: '企业B',
-                riskValue: Math.round(Math.random()*1000),
-                thirdParty: '上海市普陀区金沙江路 1518 弄'
+                riskValue: Math.round(Math.random()*1000)
             },  {
                 enterprise: '企业C',
-                riskValue: Math.round(Math.random()*1000),
-                thirdParty: '上海市普陀区金沙江路 1518 弄'
+                riskValue: Math.round(Math.random()*1000)
             }, {
                 enterprise: '企业D',
-                riskValue: Math.round(Math.random()*1000),
-                thirdParty: '上海市普陀区金沙江路 1518 弄'
+                riskValue: Math.round(Math.random()*1000)
             },{
                 enterprise: '企业E',
-                riskValue: Math.round(Math.random()*1000),
-                thirdParty: '上海市普陀区金沙江路 1518 弄'
+                riskValue: Math.round(Math.random()*1000)
             }, {
                 enterprise: '企业F',
-                riskValue: Math.round(Math.random()*1000),
-                thirdParty: '上海市普陀区金沙江路 1518 弄'
+                riskValue: Math.round(Math.random()*1000)
             },  {
                 enterprise: '企业G',
-                riskValue: Math.round(Math.random()*1000),
-                thirdParty: '上海市普陀区金沙江路 1518 弄'
+                riskValue: Math.round(Math.random()*1000)
             },{
                 enterprise: '企业H',
-                riskValue: Math.round(Math.random()*1000),
-                thirdParty: '上海市普陀区金沙江路 1518 弄'
+                riskValue: Math.round(Math.random()*1000)
             },  ]
         }),200);
     }

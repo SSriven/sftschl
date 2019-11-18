@@ -18,9 +18,19 @@ import{
     Popover,
     Table,
     Button,
-    TableColumn
+    TableColumn,
+    Select,
+    Option,
+    Form,
+    FormItem,
+    Input
 } from 'element-ui'
 
+Vue.use(Input);
+Vue.use(Form);
+Vue.use(FormItem);
+Vue.use(Select);
+Vue.use(Option);
 Vue.use(Popover);
 Vue.use(Table);
 Vue.use(Button);
