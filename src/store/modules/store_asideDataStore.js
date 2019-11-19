@@ -9,6 +9,10 @@ const state = {
       //侧边栏折叠菜单
     menuTree:[],
     currentTab:'0',//当前显示的树状折叠菜单
+  navMenuArr:[
+    {index:'0',title:'角色管理',icon:'el-icon-setting'},
+    {index:'1',title:'用户管理',icon:'el-icon-user-solid'},
+  ]
 };
 
 // getters

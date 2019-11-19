@@ -8,7 +8,8 @@
     </li>
   </ul>
   <GeminiScrollbar autoshow class='collapse' :style="styleObj">
-    <menu-tree></menu-tree>
+    <nav-menu v-if="currentTab === '3'"></nav-menu>
+    <menu-tree v-else></menu-tree>
   </GeminiScrollbar>
   
 </div>
@@ -17,11 +18,12 @@
 import Vue from 'vue'
 import GeminiScrollbar from 'vue-gemini-scrollbar'
 import MenuTree from './comp_MenuTree.vue'
+import NavMenu from './comp_NavMenu.vue'
 import { mapState,mapMutations ,mapActions } from 'vuex'
 
 // const { mapState, mapActions } = createNamespacedHelpers('../../store/modules')
 
-Vue.use(GeminiScrollbar)
+Vue.use(GeminiScrollbar);
   export default {
     name:"CollapseBox",
     data() {
@@ -31,7 +33,7 @@ Vue.use(GeminiScrollbar)
     },
 
     components:{
-      MenuTree
+      MenuTree,NavMenu
     },
 
     computed:{
@@ -52,8 +54,8 @@ Vue.use(GeminiScrollbar)
        * 切换选项卡
        */
       qiehuan(index){
-        var list = this.tabList;
-        for(var i = 0; i < list.length; i++){
+        let list = this.tabList;
+        for(let i = 0; i < list.length; i++){
           list[i].className="tab-item";
         }
         list[index].className = "tab-item is-active";

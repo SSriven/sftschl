@@ -23,9 +23,17 @@ import{
     Option,
     Form,
     FormItem,
-    Input
+    Input,
+    Menu,
+    MenuItem,
+    Pagination,
+    Tag
 } from 'element-ui'
 
+Vue.use(Tag);
+Vue.use(Pagination);
+Vue.use(Menu);
+Vue.use(MenuItem);
 Vue.use(Input);
 Vue.use(Form);
 Vue.use(FormItem);

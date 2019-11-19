@@ -5,10 +5,13 @@
  */
 
 
+
+
 const _tabList = [
     {className:"tab-item is-active",labelName:"辖区企业数据"},
     {className:"tab-item",labelName:"风险评级企业"},
     {className:"tab-item",labelName:"行政执法"},
+    {className:"tab-item",labelName:"用户角色管理"},
   ];
 const _menuTree1 = [
     {

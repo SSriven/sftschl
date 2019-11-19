@@ -1,19 +1,20 @@
 //风险评级企业
 <template>
     <div :style="item_box_styleObj">
-        风险评级企业
+        <table-fxpjqy></table-fxpjqy>
     </div>
 </template>
 
 <script>
 
     import detectElementResize from 'detect-element-resize'
+    import TableFxpjqy from '../table/comp_Table_fxpjqy.vue'
     import $ from 'jquery'
     export default {
         data(){
             return {
+                item_box_styleObj:{height:(document.documentElement.clientHeight-156) + 'px'},
 
-                item_box_styleObj:{height:(document.documentElement.clientHeight-156) + 'px'}
             }
         },
         mounted(){
@@ -35,8 +36,11 @@
 
             })
         },
-        components:{
+        methods:{
 
+        },
+        components:{
+            TableFxpjqy
         },
         props:{
 
