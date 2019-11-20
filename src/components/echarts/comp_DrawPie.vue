@@ -18,23 +18,23 @@ export default {
 
         let that = this;
         let main = document.getElementById(this.id);
-        detectElementResize.addResizeListener(main,function(){
-            if(that.timer)
-                clearTimeout(that.timer);
-            that.timer = setTimeout(()=>{
-                that.myPie.resize();
-            },200)
 
-        });
         this.myPie = this.$echarts.init(main);
         switch (this.index) {
             case '1':this.judgeAndGetPieData(this,1);break;
             case '2':this.judgeAndGetPieData(this,2);break;
             case '3':this.judgeAndGetPieData(this,3);break;
         }
+        detectElementResize.addResizeListener(main,function(){
+            that.myPie.resize();
+            // if(that.timer)
+            //     clearTimeout(that.timer);
+            //
+            // that.timer = setTimeout(()=>{
+            //
+            // },200)
 
-
-
+        });
     },
     methods:{
         drawPie(data){

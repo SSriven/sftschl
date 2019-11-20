@@ -2,6 +2,9 @@
  * 获取主体内容api
  */
 
+import '../plugins/plugin_mock.js';
+import request from '../http/request.js';
+
 let optionBar = {
     color: ['#E062AE', '#67E0E3', '#FFDB5C', '#32C5E9', '#37A2DA', '#E690D1', '#ff9f7f', '#9FE6B8',],
     tooltip: {
@@ -469,6 +472,7 @@ export default {
     getEditableTabsByAPI(backFun, obj) {
         setTimeout(() => backFun(obj), 200);
         // backFun(obj);
+
     },
 
     /**
@@ -616,7 +620,9 @@ export default {
                 }
             ]
         }), 200);
-
+        // request.http_mock_get('http://route.showapi.com/60-24','api_id=63114&api_sign=3847b0').then(response => {
+        //     backFun(response);
+        // });
     },
 
     getTabContentPie2_type1DataByAPI(backFun) {

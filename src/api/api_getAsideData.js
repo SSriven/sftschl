@@ -4,7 +4,8 @@
  * @private
  */
 
-
+import '../plugins/plugin_mock.js';
+import request from '../http/request.js';
 
 
 const _tabList = [
@@ -546,12 +547,21 @@ treeData:[{
     getMenuTree(cb,index){
         let data = null;
         switch(index){
-          case '0':data = _menuTree3;break;
-          case '1':data = _menuTree2;break;
-          case '2':data = _menuTree1;break;
+          case '0':
+            request.http_mock_get('http://route.showapi.com/60-26','api_id=63114&api_sign=3847b0').then(response => {
+            cb(response);
+          });break;
+          case '1':
+            request.http_mock_get('http://route.showapi.com/60-25','api_id=63114&api_sign=3847b0').then(response => {
+            cb(response);
+          });break;
+          case '2':
+            request.http_mock_get('http://route.showapi.com/60-27','api_id=63114&api_sign=3847b0').then(response => {
+            cb(response);
+          });break;
           default:data = null;
         }
-      cb(data)
+
         // setTimeout(() => cb(data),100)
     },
     

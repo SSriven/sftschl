@@ -1,14 +1,15 @@
 <template>
-    <el-collapse accordion  @change="clickCollapseItem">
-      <el-collapse-item v-for='(item,index) in data' :key="index" :title="item.label" :name="index"
-                        >
-        <el-tree :data="item.treeData" :props="defaultProps" 
+<!--    <el-collapse accordion  @change="clickCollapseItem">-->
+<!--      <el-collapse-item v-for='(item,index) in data' :key="index" :title="item.label" :name="index"-->
+<!--                        >-->
+        <el-tree :data="data" :props="defaultProps"
         :expand-on-click-node="false" 
-        :highlight-current="highlightCurrent" 
+        :highlight-current="highlightCurrent"
+
         @node-click="handleNodeClick">
         </el-tree>
-      </el-collapse-item>
-    </el-collapse>
+<!--      </el-collapse-item>-->
+<!--    </el-collapse>-->
 </template>
 
 <script>

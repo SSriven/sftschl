@@ -29,9 +29,6 @@ Vue.config.productionTip = false;
 //     next();
 //   }
 // });
-request.http_mock('http://route.showapi.com/60-27','api_id=63114&api_sign=3847b0').then(response => {
-  console.log(response);
-});
 new Vue({
   router,
   store,

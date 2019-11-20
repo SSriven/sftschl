@@ -183,6 +183,8 @@
 </template>
 
 <script>
+    import detectElementResize from 'detect-element-resize'
+    import $ from 'jquery'
     export default {
         name: "comp_Table_fxpjqy",
         data(){
@@ -306,7 +308,7 @@
                         enterpriseName: '企业H',
                         industry: '餐饮业',
                         township: '新建中心区',
-                        riskLevel: 1,
+                        riskLevel: 2,
                         risk: '一般风险级',
                         dangerNum: 20,
                         seriousDangerNum: 1,
@@ -320,7 +322,7 @@
                         enterpriseName: '企业I',
                         industry: '餐饮业',
                         township: '新建中心区',
-                        riskLevel: 1,
+                        riskLevel: 2,
                         risk: '一般风险级',
                         dangerNum: 20,
                         seriousDangerNum: 1,
@@ -333,6 +335,28 @@
                     },]
                 }
             }
+        },
+        mounted(){
+            let that = this;
+            let main = document.getElementById('my_header');
+            /**
+             * 监听header组件是否隐藏
+             */
+            detectElementResize.addResizeListener(main,function(){
+                let h = main.style.display;
+
+                if(h === 'none'){   //header组件隐藏
+                    that.item_box_styleObj = {height:(document.documentElement.clientHeight-96) + 'px'};
+                    $("#main_gs").css({height:document.documentElement.clientHeight+'px'});//全屏显示
+                }
+
+                else{//header组件显示
+                    $("#main_gs").css({height:document.documentElement.clientHeight-60+'px'});
+                    that.item_box_styleObj = {height:(document.documentElement.clientHeight-156) + 'px'};
+                }
+
+
+            })
         },
         methods:{
             resetDateFilter() {

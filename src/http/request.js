@@ -20,7 +20,7 @@ http.interceptors.response.use(response => { // 响应拦截器配置 // 可不�
     return Promise.reject(error)
 })
 
-export function fetch(url, params) { // 封装axios的post请求
+export function post(url, params) { // 封装axios的post请求
     return new Promise((resolve, reject) => { // promise 用法,自行查阅
         axios.post(url, params).then(response => {
             resolve(response.data) // promise相关
@@ -29,9 +29,21 @@ export function fetch(url, params) { // 封装axios的post请求
         })
     })
 }
+export function get(url, params) { // 封装axios的post请求
+    return new Promise((resolve, reject) => { // promise 用法,自行查阅
+        axios.get(url, params).then(response => {
+            resolve(response.data) // promise相关
+        }).catch(error => {
+            reject(error) // promise相关
+        })
+    })
+}
 
 export default { // 暴露htto_mock方法，即后面页面中用到的方法
-    http_mock(url, params) {
-        return fetch(url, params)
-    }
+    http_mock_post(url, params) {
+        return post(url, params)
+    },
+    http_mock_get(url, params) {
+        return get(url, params)
+    },
 }
