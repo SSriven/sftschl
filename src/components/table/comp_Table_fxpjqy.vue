@@ -4,7 +4,7 @@
             height="550"
             stripe
             ref="filterTable"
-            :data="tableData.row"
+            :data="tableData"
             style="width: 100%">
         <el-table-column
                 fixed
@@ -72,7 +72,10 @@
                 <el-tag
                         :type="scope.row.riskLevel === 1 ? 'success' : scope.row.riskLevel === 2 ? 'info' : scope.row.riskLevel === 3 ?
                             'warning' : 'danger'"
-                        disable-transitions>{{scope.row.risk}}</el-tag>
+                        disable-transitions>{{scope.row.riskLevel === 1
+                    ? '低风险级' : scope.row.riskLevel === 2
+                    ? '一般风险级' : scope.row.riskLevel === 3
+                    ? '较大风险级' : '重大风险级'}}</el-tag>
             </template>
         </el-table-column>
         <el-table-column
@@ -87,20 +90,20 @@
                 label="重大隐患数目"
                 sortable
                 align='center'
-                :filter-multiple="filter_multiple"
+                :filter-multiple="filter_multiple_false"
                 width="140"
                 :filters="[
                                 {text:'有',value:'1'},
                                 {text:'无',value:'0'},
                             ]"
-                :filter-method="filterHandler">
+                :filter-method="filterSerousDanger">
         </el-table-column>
         <el-table-column
                 prop="seriouseDangerSourse"
                 label="重大危险源"
                 sortable
                 align='center'
-                :filter-multiple="filter_multiple"
+                :filter-multiple="filter_multiple_false"
                 width="140"
                 :filters="[
                                 {text:'是',value:'是'},
@@ -113,7 +116,7 @@
                 label="涉危企业"
                 sortable
                 align='center'
-                :filter-multiple="filter_multiple"
+                :filter-multiple="filter_multiple_false"
                 width="140"
                 :filters="[
                                 {text:'是',value:'是'},
@@ -126,7 +129,7 @@
                 label="危险化工工艺"
                 sortable
                 align='center'
-                :filter-multiple="filter_multiple"
+                :filter-multiple="filter_multiple_false"
                 width="140"
                 :filters="[
                                 {text:'是',value:'是'},
@@ -146,7 +149,7 @@
                 label="受限空间"
                 sortable
                 align='center'
-                :filter-multiple="filter_multiple"
+                :filter-multiple="filter_multiple_false"
                 width="140"
                 :filters="[
                                 {text:'有',value:'有'},
@@ -159,7 +162,7 @@
                 label="粉尘爆炸"
                 sortable
                 align='center'
-                :filter-multiple="filter_multiple"
+                :filter-multiple="filter_multiple_false"
                 width="140"
                 :filters="[
                                 {text:'有',value:'有'},
@@ -179,189 +182,48 @@
                 layout="total,prev, pager, next, jumper"
                 :total="1000">
         </el-pagination>
+        <el-button type="danger" @click="clearFilter"
+                   title="清除所有筛选条件"
+                   icon="el-icon-refresh"
+                   circle
+                   style="position: absolute;right:0;bottom:0;">
+        </el-button>
     </div>
 </template>
 
 <script>
-    import detectElementResize from 'detect-element-resize'
-    import $ from 'jquery'
+    import getMainData from "../../api/api_getMainData";
+    import { mapState,mapMutations ,mapGetters ,mapActions} from 'vuex'
     export default {
         name: "comp_Table_fxpjqy",
         data(){
             return{
                 currentPage3: 4,
                 filter_multiple:true,
-                tableData : {
-                    row: [{
-                        enterpriseName: '企业A',
-                        industry: '餐饮业',
-                        township: '新建中心区',
-                        riskLevel: 1,
-                        risk: '低风险级',
-                        dangerNum: 20,
-                        seriousDangerNum: 1,
-                        seriouseDangerSourse: '否',
-                        involveDangerEnterprise: '否',
-                        hazardousChemicalProcess: '否',
-                        lawEnforcement: '否',
-                        confinedSpace: '无',
-                        dustExplosion: '无'
-                    }, {
-                        enterpriseName: '企业B',
-                        industry: '餐饮业',
-                        township: '新建中心区',
-                        riskLevel: 2,
-                        risk: '一般风险级',
-                        dangerNum: 20,
-                        seriousDangerNum: 1,
-                        seriouseDangerSourse: '否',
-                        involveDangerEnterprise: '否',
-                        hazardousChemicalProcess: '否',
-                        lawEnforcement: '否',
-                        confinedSpace: '无',
-                        dustExplosion: '无'
-                    }, {
-                        enterpriseName: '企业C',
-                        industry: '餐饮业',
-                        township: '新建中心区',
-                        riskLevel: 3,
-                        risk: '较大风险级',
-                        dangerNum: 20,
-                        seriousDangerNum: 1,
-                        seriouseDangerSourse: '否',
-                        involveDangerEnterprise: '否',
-                        hazardousChemicalProcess: '否',
-                        lawEnforcement: '否',
-                        confinedSpace: '无',
-                        dustExplosion: '无'
-                    }, {
-                        enterpriseName: '企业D',
-                        industry: '餐饮业',
-                        township: '新建中心区',
-                        riskLevel: 4,
-                        risk: '重大风险级',
-                        dangerNum: 20,
-                        seriousDangerNum: 1,
-                        seriouseDangerSourse: '否',
-                        involveDangerEnterprise: '否',
-                        hazardousChemicalProcess: '否',
-                        lawEnforcement: '否',
-                        confinedSpace: '无',
-                        dustExplosion: '无'
-                    }, {
-                        enterpriseName: '企业E',
-                        industry: '餐饮业',
-                        township: '新建中心区',
-                        riskLevel: 2,
-                        risk: '一般风险级',
-                        dangerNum: 20,
-                        seriousDangerNum: 1,
-                        seriouseDangerSourse: '否',
-                        involveDangerEnterprise: '否',
-                        hazardousChemicalProcess: '否',
-                        lawEnforcement: '否',
-                        confinedSpace: '无',
-                        dustExplosion: '无'
-                    }, {
-                        enterpriseName: '企业F',
-                        industry: '餐饮业',
-                        township: '新建中心区',
-                        riskLevel: 4,
-                        risk: '重大风险级',
-                        dangerNum: 20,
-                        seriousDangerNum: 1,
-                        seriouseDangerSourse: '否',
-                        involveDangerEnterprise: '否',
-                        hazardousChemicalProcess: '否',
-                        lawEnforcement: '否',
-                        confinedSpace: '无',
-                        dustExplosion: '无'
-                    }, {
-                        enterpriseName: '企业G',
-                        industry: '餐饮业',
-                        township: '新建中心区',
-                        riskLevel: 3,
-                        risk: '较大风险级',
-                        dangerNum: 20,
-                        seriousDangerNum: 1,
-                        seriouseDangerSourse: '否',
-                        involveDangerEnterprise: '否',
-                        hazardousChemicalProcess: '否',
-                        lawEnforcement: '否',
-                        confinedSpace: '无',
-                        dustExplosion: '无'
-                    }, {
-                        enterpriseName: '企业G',
-                        industry: '餐饮业',
-                        township: '新建中心区',
-                        riskLevel: 1,
-                        risk: '低风险级',
-                        dangerNum: 20,
-                        seriousDangerNum: 1,
-                        seriouseDangerSourse: '否',
-                        involveDangerEnterprise: '否',
-                        hazardousChemicalProcess: '否',
-                        lawEnforcement: '否',
-                        confinedSpace: '无',
-                        dustExplosion: '无'
-                    }, {
-                        enterpriseName: '企业H',
-                        industry: '餐饮业',
-                        township: '新建中心区',
-                        riskLevel: 2,
-                        risk: '一般风险级',
-                        dangerNum: 20,
-                        seriousDangerNum: 1,
-                        seriouseDangerSourse: '否',
-                        involveDangerEnterprise: '否',
-                        hazardousChemicalProcess: '否',
-                        lawEnforcement: '否',
-                        confinedSpace: '无',
-                        dustExplosion: '无'
-                    }, {
-                        enterpriseName: '企业I',
-                        industry: '餐饮业',
-                        township: '新建中心区',
-                        riskLevel: 2,
-                        risk: '一般风险级',
-                        dangerNum: 20,
-                        seriousDangerNum: 1,
-                        seriouseDangerSourse: '否',
-                        involveDangerEnterprise: '否',
-                        hazardousChemicalProcess: '否',
-                        lawEnforcement: '否',
-                        confinedSpace: '无',
-                        dustExplosion: '无'
-                    },]
-                }
+                filter_multiple_false:false,
+                tableData:[],
             }
+        },
+
+        computed:{
+            ...mapGetters("mainDataStore",{
+                tableData_type2:'currentTabContentTable_type2'
+            })
         },
         mounted(){
             let that = this;
-            let main = document.getElementById('my_header');
-            /**
-             * 监听header组件是否隐藏
-             */
-            detectElementResize.addResizeListener(main,function(){
-                let h = main.style.display;
-
-                if(h === 'none'){   //header组件隐藏
-                    that.item_box_styleObj = {height:(document.documentElement.clientHeight-96) + 'px'};
-                    $("#main_gs").css({height:document.documentElement.clientHeight+'px'});//全屏显示
-                }
-
-                else{//header组件显示
-                    $("#main_gs").css({height:document.documentElement.clientHeight-60+'px'});
-                    that.item_box_styleObj = {height:(document.documentElement.clientHeight-156) + 'px'};
-                }
+            if(this.tableData_type2 === null){
+                getMainData.getTabContentTable_type2DataByAPI(data => {
+                    that.tableData = data;
+                    that.setTabContentTable_type2(data);
+                })
+            }else{
+                that.tableData = that.tableData_type2;
+            }
 
 
-            })
         },
         methods:{
-            resetDateFilter() {
-                this.$refs.filterTable.clearFilter('date');
-            },
             clearFilter() {
                 this.$refs.filterTable.clearFilter();
             },
@@ -373,12 +235,25 @@
                 return row[property] === value
 
             },
+            filterSerousDanger(value,row,column){
+                const property = column['property'];
+                let value1 = Number(value);
+                if(value1){
+                    return Number(row[property]) > 0;
+                }else{
+                    return Number(row[property]) <= 0;
+                }
+
+            },
             handleSizeChange(val) {
                 console.log(`每页 ${val} 条`);
             },
             handleCurrentChange(val) {
                 console.log(`当前页: ${val}`);
-            }
+            },
+            ...mapMutations('mainDataStore',{
+                setTabContentTable_type2:'setTabContentTable_type2'
+            })
         }
     }
 </script>

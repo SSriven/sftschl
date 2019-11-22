@@ -10,7 +10,7 @@ const state = {
     editableTabs: [],//标签页数组
     editableTabsValue:'0',//当前显示的标签页
     tabContentArr:[],//存储所有标签页的内容
-
+    key:Math.random()*100000+new Date().getTime()
 };
 
 // getters
@@ -47,6 +47,14 @@ const getters = {
      */
     currentTabContentBar(state){
         return state.tabContentArr[Number(state.editableTabsValue)].bar_type1;
+    },
+
+    currentTabContentTable_type1(state){
+        return state.tabContentArr[Number(state.editableTabsValue)].tableData_type1;
+    },
+
+    currentTabContentTable_type2(state){
+        return state.tabContentArr[Number(state.editableTabsValue)].tableData_type2;
     },
 };
 // actions
@@ -118,7 +126,12 @@ const mutations = {
 
     setTabContentTable_type1(state,data){
         state.tabContentArr[Number(state.editableTabsValue)].setTableData_type1(data);
-    }
+    },
+
+    setTabContentTable_type2(state,data){
+        state.tabContentArr[Number(state.editableTabsValue)].setTableData_type2(data);
+    },
+
 };
 export default {
     namespaced: true,

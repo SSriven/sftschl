@@ -8,6 +8,7 @@ import '../plugins/plugin_mock.js';
 import request from '../http/request.js';
 
 
+
 const _tabList = [
     {className:"tab-item is-active",labelName:"辖区企业数据"},
     {className:"tab-item",labelName:"风险评级企业"},
@@ -548,15 +549,17 @@ treeData:[{
         let data = null;
         switch(index){
           case '0':
-            request.http_mock_get('http://route.showapi.com/60-26','api_id=63114&api_sign=3847b0').then(response => {
-            cb(response);
-          });break;
+            console.log(0);
+            request.http_mock_get('http://route.showapi.com/60-26').then(response => {
+              cb(response);
+          });
+            break;
           case '1':
-            request.http_mock_get('http://route.showapi.com/60-25','api_id=63114&api_sign=3847b0').then(response => {
+            request.http_mock_get('http://route.showapi.com/60-25').then(response => {
             cb(response);
           });break;
           case '2':
-            request.http_mock_get('http://route.showapi.com/60-27','api_id=63114&api_sign=3847b0').then(response => {
+            request.http_mock_get('http://route.showapi.com/60-27').then(response => {
             cb(response);
           });break;
           default:data = null;

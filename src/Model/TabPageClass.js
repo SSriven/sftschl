@@ -19,6 +19,7 @@ export default class TabPageClass{
         this.bar_type1 = null;//标签页中的柱状图数据
         this.amap_type1 = null;//标签页中地图的数据
         this.tableData_type1 = null;
+        this.tableData_type2 = null;
     }
 
 
@@ -56,6 +57,10 @@ export default class TabPageClass{
 
     setTableData_type1(tableData){
         this.tableData_type1 = tableData;
+    }
+
+    setTableData_type2(tableData){
+        this.tableData_type2 = tableData;
     }
 };
 

@@ -468,6 +468,10 @@ let hy = [{"idsnm": "机械业", "iid": "Ib36de3df70314a5caa684f34b45f71c6"}, {
     "iid": "I3c3efcb5c50541f58bb5f09eb765f53a"
 }, {"idsnm": "国际组织", "iid": "Iab1d2fe18a644c2b865014f738dd8c65"}];
 
+import Mock from 'mockjs'
+
+let Random = Mock.Random;
+
 export default {
     getEditableTabsByAPI(backFun, obj) {
         setTimeout(() => backFun(obj), 200);
@@ -620,9 +624,6 @@ export default {
                 }
             ]
         }), 200);
-        // request.http_mock_get('http://route.showapi.com/60-24','api_id=63114&api_sign=3847b0').then(response => {
-        //     backFun(response);
-        // });
     },
 
     getTabContentPie2_type1DataByAPI(backFun) {
@@ -724,184 +725,40 @@ export default {
      * @param callBack
      */
     getTabContentTable_type1DataByAPI(callBack) {
-        setTimeout(() => callBack({
-            column: [
-                {prop: "riskValue", label: '风险值'},
-                {prop: "enterprise", label: '企业'}
-            ],
-            row: [{
-                enterprise: '企业A',
-                riskValue: Math.round(Math.random() * 1000)
-            }, {
-                enterprise: '企业B',
-                riskValue: Math.round(Math.random() * 1000)
-            }, {
-                enterprise: '企业C',
-                riskValue: Math.round(Math.random() * 1000)
-            }, {
-                enterprise: '企业D',
-                riskValue: Math.round(Math.random() * 1000)
-            }, {
-                enterprise: '企业E',
-                riskValue: Math.round(Math.random() * 1000)
-            }, {
-                enterprise: '企业F',
-                riskValue: Math.round(Math.random() * 1000)
-            }, {
-                enterprise: '企业G',
-                riskValue: Math.round(Math.random() * 1000)
-            }, {
-                enterprise: '企业H',
-                riskValue: Math.round(Math.random() * 1000)
-            },]
-        }), 200);
+        // setTimeout(() => callBack(), 200);
+        Mock.mock('http://route.showapi.com/60-23',{
+            "tableData|5-20": [{   // 随机生成5到10个数组元素
+                'enterprise': '@cname',  // 中文名称
+                "riskValue|+10":10
+            }]
+        });
+        request.http_mock_get('http://route.showapi.com/60-23','api_id=63114&api_sign=3847b0').then(response => {
+            callBack(response.tableData);
+        });
     },
 
 
     getTabContentTable_type2DataByAPI(callBack) {
-        setTimeout(() => callBack({
-            row: [{
-                enterpriseName: '企业A',
-                industry: '餐饮业',
-                township: '新建中心区',
-                riskLevel: 1,
-                risk: '一般风险级',
-                dangerNum: 20,
-                seriousDangerNum: 1,
-                seriouseDangerSourse: '否',
-                involveDangerEnterprise: '否',
-                hazardousChemicalProcess: '否',
-                lawEnforcement: '否',
-                confinedSpace: '无',
-                dustExplosion: '无'
-            }, {
-                enterpriseName: '企业B',
-                industry: '机械业',
-                township: '新建中心区',
-                riskLevel: 1,
-                risk: '一般风险级',
-                dangerNum: 20,
-                seriousDangerNum: 1,
-                seriouseDangerSourse: '否',
-                involveDangerEnterprise: '否',
-                hazardousChemicalProcess: '否',
-                lawEnforcement: '否',
-                confinedSpace: '无',
-                dustExplosion: '无'
-            }, {
-                enterpriseName: '企业C',
-                industry: '餐饮业',
-                township: '新建中心区',
-                riskLevel: 1,
-                risk: '一般风险级',
-                dangerNum: 20,
-                seriousDangerNum: 1,
-                seriouseDangerSourse: '否',
-                involveDangerEnterprise: '否',
-                hazardousChemicalProcess: '否',
-                lawEnforcement: '否',
-                confinedSpace: '无',
-                dustExplosion: '无'
-            }, {
-                enterpriseName: '企业D',
-                industry: '餐饮业',
-                township: '新建中心区',
-                riskLevel: 1,
-                risk: '一般风险级',
-                dangerNum: 20,
-                seriousDangerNum: 1,
-                seriouseDangerSourse: '否',
-                involveDangerEnterprise: '否',
-                hazardousChemicalProcess: '否',
-                lawEnforcement: '否',
-                confinedSpace: '无',
-                dustExplosion: '无'
-            }, {
-                enterpriseName: '企业E',
-                industry: '餐饮业',
-                township: '新建中心区',
-                riskLevel: 1,
-                risk: '一般风险级',
-                dangerNum: 20,
-                seriousDangerNum: 1,
-                seriouseDangerSourse: '否',
-                involveDangerEnterprise: '否',
-                hazardousChemicalProcess: '否',
-                lawEnforcement: '否',
-                confinedSpace: '无',
-                dustExplosion: '无'
-            }, {
-                enterpriseName: '企业F',
-                industry: '餐饮业',
-                township: '新建中心区',
-                riskLevel: 1,
-                risk: '一般风险级',
-                dangerNum: 20,
-                seriousDangerNum: 1,
-                seriouseDangerSourse: '否',
-                involveDangerEnterprise: '否',
-                hazardousChemicalProcess: '否',
-                lawEnforcement: '否',
-                confinedSpace: '无',
-                dustExplosion: '无'
-            }, {
-                enterpriseName: '企业G',
-                industry: '餐饮业',
-                township: '新建中心区',
-                riskLevel: 1,
-                risk: '一般风险级',
-                dangerNum: 20,
-                seriousDangerNum: 1,
-                seriouseDangerSourse: '否',
-                involveDangerEnterprise: '否',
-                hazardousChemicalProcess: '否',
-                lawEnforcement: '否',
-                confinedSpace: '无',
-                dustExplosion: '无'
-            }, {
-                enterpriseName: '企业G',
-                industry: '餐饮业',
-                township: '新建中心区',
-                riskLevel: 1,
-                risk: '一般风险级',
-                dangerNum: 20,
-                seriousDangerNum: 1,
-                seriouseDangerSourse: '否',
-                involveDangerEnterprise: '否',
-                hazardousChemicalProcess: '否',
-                lawEnforcement: '否',
-                confinedSpace: '无',
-                dustExplosion: '无'
-            }, {
-                enterpriseName: '企业H',
-                industry: '餐饮业',
-                township: '新建中心区',
-                riskLevel: 1,
-                risk: '一般风险级',
-                dangerNum: 20,
-                seriousDangerNum: 1,
-                seriouseDangerSourse: '否',
-                involveDangerEnterprise: '否',
-                hazardousChemicalProcess: '否',
-                lawEnforcement: '否',
-                confinedSpace: '无',
-                dustExplosion: '无'
-            }, {
-                enterpriseName: '企业I',
-                industry: '餐饮业',
-                township: '新建中心区',
-                riskLevel: 1,
-                risk: '一般风险级',
-                dangerNum: 20,
-                seriousDangerNum: 1,
-                seriouseDangerSourse: '否',
-                involveDangerEnterprise: '否',
-                hazardousChemicalProcess: '否',
-                lawEnforcement: '否',
-                confinedSpace: '无',
-                dustExplosion: '无'
-            },]
-        }), 200);
+        Mock.mock('http://route.showapi.com/60-22',{
+            "tableData|10-20": [{   // 随机生成5到10个数组元素
+                'enterpriseName': '@cname',  // 中文名称
+                "industry":'@cname',
+                'township': '@city',
+                'riskLevel|1-4':0,
+                'dangerNum|10-100':0,
+                'seriousDangerNum|10-100':0,
+                seriouseDangerSourse: Math.random() < 0.5 ? "否" : "是",
+                involveDangerEnterprise: Math.random() < 0.5 ? "否" : "是",
+                hazardousChemicalProcess: Math.random() < 0.5 ? "否" : "是",
+                lawEnforcement: Math.random() < 0.5 ? "否" : "是",
+                confinedSpace: Math.random() < 0.5 ? "有" : "无",
+                dustExplosion: Math.random() < 0.5 ? "有" : "无"
+            }]
+        });
+        request.http_mock_get('http://route.showapi.com/60-22','api_id=63114&api_sign=3847b0').then(response => {
+            callBack(response.tableData);
+        });
+        // setTimeout(() => callBack(), 200);
     }
 
 }

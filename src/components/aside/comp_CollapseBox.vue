@@ -70,7 +70,10 @@ Vue.use(GeminiScrollbar);
       ...mapMutations('asideDataStore',{
         changeTabIndex:'changeCurrentTab',
         changeTabList:'changeTabList'
-      })
+      }),
+              ...mapMutations('mainDataStore',{
+                setKey:'setKey'
+              })
       
     }
   };

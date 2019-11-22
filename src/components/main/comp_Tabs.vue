@@ -8,7 +8,7 @@
                 :key="index"
                 :label="item.title"
                 :name="index+''">    
-                <main-content  v-show="index === Number(editableTabsValue)" :mainType="item.type"></main-content>
+                <main-content  v-if="index === Number(editableTabsValue)" :mainType="item.type"></main-content>
             </el-tab-pane>
         </el-tabs>
         

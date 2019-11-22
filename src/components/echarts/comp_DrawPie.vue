@@ -1,5 +1,5 @@
 <template>
-    <div :id="id" style="height:100%"></div>
+    <div :id="id" :key="key" style="height:100%"></div>
 </template>
 
 <script>
@@ -15,7 +15,7 @@ export default {
         }
     },
     mounted(){
-
+        console.log("pie");
         let that = this;
         let main = document.getElementById(this.id);
 
@@ -27,47 +27,40 @@ export default {
         }
         detectElementResize.addResizeListener(main,function(){
             that.myPie.resize();
-            // if(that.timer)
-            //     clearTimeout(that.timer);
-            //
-            // that.timer = setTimeout(()=>{
-            //
-            // },200)
-
         });
+
+
     },
     methods:{
         drawPie(data){
             this.myPie.setOption(data);
         },
         ...mapMutations('mainDataStore',{
-            setTabContentPie_type1:'setTabContentPie_type1'
+            setTabContentPie_type1:'setTabContentPie_type1',
         }),
         judgeAndGetPieData(that,i){
             if(this.pieObj(i) === null){
                 getMainData.getTabContentPie_type1DataByAPI( data => {
                     that.setTabContentPie_type1({data:data,index:i});
                     that.drawPie(data);
-                    console.log(i + '' + 1);
                 },i);
             }else{
                 that.pieData = this.pieObj(i);
-                that.drawPie(data);
-                console.log(i + '' + 2);
+                that.drawPie(that.pieData);
             }
         }
     },
     computed:{
         ...mapGetters('mainDataStore',{
-            pieObj:'currentTabContentPie'
+            pieObj:'currentTabContentPie',
+        }),
+        ...mapState('mainDataStore',{
+            key:state => state.key
         })
     },
     watch:{
-        option:{//监听option对象的改变
-            handler(newVal){
-                this.option = newVal;
-            },
-            deep:true//深度监听
+        key(){
+            console.log("pie1");
         }
     },
     props:['index']

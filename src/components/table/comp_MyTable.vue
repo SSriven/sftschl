@@ -9,7 +9,7 @@
 <!--    </el-option>-->
 <!--  </el-select>-->
   <el-table
-    :data="tableData.row"
+    :data="tableData"
     style="width: 100%;"
     height="300"
     border
@@ -24,12 +24,18 @@
       align='center'>
     </el-table-column>
     <el-table-column
-      :prop="item.prop"
-      :label="item.label"
+      prop="riskValue"
+      label="风险值"
       sortable
-      v-for="(item,index) in tableData.column"
-      :key="index"
+      key="riskValue"
       align='center'>
+    </el-table-column>
+    <el-table-column
+            prop="enterprise"
+            label="企业"
+            sortable
+            key="enterprise"
+            align='center'>
     </el-table-column>
   </el-table>
   </div>
@@ -42,17 +48,28 @@
       name:"MyTable",
     data() {
       return {
-        tableData:{row:null,column:null},
+        tableData:[],
         value:''
       }
     },
 
+    computed:{
+        ...mapGetters('mainDataStore',{
+          tableData_type1:'currentTabContentTable_type1'
+        })
+    },
+
     mounted(){
         let that = this;
-      getMainData.getTabContentTable_type1DataByAPI(data => {
-        that.tableData = data;
-        that.setTabContentTable_type1(data);
-      })
+        if(this.tableData_type1 === null){
+          getMainData.getTabContentTable_type1DataByAPI(data => {
+            that.tableData = data;
+            that.setTabContentTable_type1(data);
+          });
+        }else{
+          that.tableData = that.tableData_type1;
+        }
+
     },
     methods: {
       formatter(row, column) {

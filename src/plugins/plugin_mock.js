@@ -1,6 +1,6 @@
 import Mock from 'mockjs'
 
-const Random = Mock.Random;
+let Random = Mock.Random;
 
 let menuTreeData3 = function() {
     let treeDataArr = [];
