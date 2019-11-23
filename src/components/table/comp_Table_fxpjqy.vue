@@ -1,8 +1,11 @@
 <template>
     <div>
     <el-table
+            empty-text=" "
+            class="table_fxjqy"
+            :id="id"
             height="550"
-            stripe
+
             ref="filterTable"
             :data="tableData"
             style="width: 100%">
@@ -55,19 +58,19 @@
                 :filter-method="filterHandler">
         </el-table-column>
         <el-table-column
-                prop="risk"
+                prop="riskLevel"
                 label="风险级别"
                 sortable
                 align='center'
                 :filter-multiple="filter_multiple"
                 width="140"
                 :filters="[
-                                {text:'一般风险级',value:'一般风险级'},
-                                {text:'低风险级',value:'低风险级'},
-                                {text:'较大风险级',value:'较大风险级'},
-                                {text:'重大风险级',value:'重大风险级'},
+                                {text:'低风险级',value:'1'},
+                                {text:'一般风险级',value:'2'},
+                                {text:'较大风险级',value:'3'},
+                                {text:'重大风险级',value:'4'},
                             ]"
-                :filter-method="filterHandler">
+                :filter-method="filterHandlerRisk">
             <template slot-scope="scope">
                 <el-tag
                         :type="scope.row.riskLevel === 1 ? 'success' : scope.row.riskLevel === 2 ? 'info' : scope.row.riskLevel === 3 ?
@@ -177,10 +180,10 @@
                 hide-on-single-page
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
-                :current-page.sync="currentPage3"
-                :page-size="10"
+                :current-page.sync="currentPage"
+                :page-size="15"
                 layout="total,prev, pager, next, jumper"
-                :total="1000">
+                :total="total">
         </el-pagination>
         <el-button type="danger" @click="clearFilter"
                    title="清除所有筛选条件"
@@ -194,47 +197,87 @@
 <script>
     import getMainData from "../../api/api_getMainData";
     import { mapState,mapMutations ,mapGetters ,mapActions} from 'vuex'
+    let loading;
     export default {
         name: "comp_Table_fxpjqy",
+
         data(){
             return{
-                currentPage3: 4,
+                id:'table_fxpjqy_'+Math.random()*100000+new Date().getTime(),
+                currentPage: 1,
                 filter_multiple:true,
                 filter_multiple_false:false,
                 tableData:[],
+                total:0
             }
         },
 
         computed:{
             ...mapGetters("mainDataStore",{
-                tableData_type2:'currentTabContentTable_type2'
+                tableData_type2:'currentTabContentTable_type2_tableData',
+                tableTotal:'currentTabContentTable_type2_total',
+                currentPageIndex:'currentTabContentTable_type2_currentPage'
             })
         },
         mounted(){
             let that = this;
             if(this.tableData_type2 === null){
-                getMainData.getTabContentTable_type2DataByAPI(data => {
-                    that.tableData = data;
-                    that.setTabContentTable_type2(data);
-                })
+                this.getTableData(this,1);
             }else{
                 that.tableData = that.tableData_type2;
+                that.total = that.tableTotal;
+                that.currentPage = that.currentPageIndex;
+                // that.loading = false;
             }
 
 
         },
         methods:{
+            getTableData(that,currentPage){
+                loading = that.$loading.service({
+                    target:document.getElementById(that.id),
+                    text: '加载中',
+                    spinner: 'el-icon-loading',
+                    background: 'rgba(255, 255, 255, 0.7)'
+                });
+                getMainData.getTabContentTable_type2DataByAPI(data => {
+                    console.log(data);
+                    that.tableData = data.tableData;
+                    that.currentPage = currentPage;
+                    data.currentPage = currentPage;
+                    that.setTabContentTable_type2(data);
+                    that.total = data.total;
+                    loading.close();
+                })
+            },
             clearFilter() {
                 this.$refs.filterTable.clearFilter();
-            },
-            formatter(row, column) {
-                return row.address;
             },
             filterHandler(value, row, column) {
                 const property = column['property'];
                 return row[property] === value
 
             },
+            /**
+             * 风险等级筛选条件
+             * @param value
+             * @param row
+             * @param column
+             * @returns {boolean}
+             */
+            filterHandlerRisk(value, row, column) {
+                const property = column['property'];
+                // console.log(row[property],value);
+                return Number(row[property]) === Number(value)
+
+            },
+            /**
+             * 重大隐患数目筛选条件
+             * @param value
+             * @param row
+             * @param column
+             * @returns {boolean}
+             */
             filterSerousDanger(value,row,column){
                 const property = column['property'];
                 let value1 = Number(value);
@@ -248,8 +291,13 @@
             handleSizeChange(val) {
                 console.log(`每页 ${val} 条`);
             },
+            /**
+             * 选择页码
+             * @param val
+             */
             handleCurrentChange(val) {
                 console.log(`当前页: ${val}`);
+                this.getTableData(this,val);
             },
             ...mapMutations('mainDataStore',{
                 setTabContentTable_type2:'setTabContentTable_type2'

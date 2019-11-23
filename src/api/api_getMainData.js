@@ -738,9 +738,15 @@ export default {
     },
 
 
+    /**
+     * 获取type2界面下的表格数据
+     * @param callBack
+     */
     getTabContentTable_type2DataByAPI(callBack) {
         Mock.mock('http://route.showapi.com/60-22',{
-            "tableData|10-20": [{   // 随机生成5到10个数组元素
+            "total|10-100":0,
+            "currentPage":1,
+            "tableData|15": [{   // 随机生成5到10个数组元素
                 'enterpriseName': '@cname',  // 中文名称
                 "industry":'@cname',
                 'township': '@city',
@@ -756,7 +762,9 @@ export default {
             }]
         });
         request.http_mock_get('http://route.showapi.com/60-22','api_id=63114&api_sign=3847b0').then(response => {
-            callBack(response.tableData);
+            setTimeout(()=>{
+                callBack(response);
+            },1000)
         });
         // setTimeout(() => callBack(), 200);
     }

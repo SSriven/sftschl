@@ -88,9 +88,7 @@ export default {
             }
 
         },
-        ...mapActions('mainDataStore',{
-            getEditableTabs:'getEditableTabs'
-        }),
+
         ...mapMutations('mainDataStore',{
             changeEditableTabs:'changeEditableTabs',
             changeEditableTabsValue:'changeEditableTabsValue',

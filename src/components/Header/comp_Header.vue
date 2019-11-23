@@ -2,7 +2,7 @@
 <template>
     <div>
         <div class="header-left">
-            <p class="header-left-title">企业安全风险分级监控与隐患排查治理监管平台-1.0</p>
+            <p class="header-left-title">企业安全风险分级监控与隐患排查治理监管平台-2.0</p>
             <p class="header-left-welcome">
                 欢迎
                 <span class="header-left-status">政府员工</span>

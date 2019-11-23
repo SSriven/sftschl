@@ -1,6 +1,6 @@
 //县/辖区主体布局
 <template>
-    <div :style="item_box_styleObj" class="main_content">
+    <div :style="item_box_styleObj" class="main_content" :id="id">
         <el-row :gutter="20" >
             <el-col :span="6">
                 <div class='item-box item-box-left' >
@@ -62,15 +62,17 @@ export default {
             index2:'2',
             index3:'3',
             main_pie_4:"main_pie_4",
-            item_box_styleObj:{height:(document.documentElement.clientHeight-156) + 'px'}
+            item_box_styleObj:{height:(document.documentElement.clientHeight-156) + 'px'},
+            id:"main_content_"+Math.random()*100000+new Date().getTime()
         }
     },
     computed:{
 
     },
     beforeCreate(){
+        // let that = this;
         // this.loading = this.$loading.service({
-        //     target:document.querySelector(".main_content"),
+        //     target:document.getElementById(that.id),
         //     text: '加载中',
         //     spinner: 'el-icon-loading',
         //     background: 'rgba(0, 0, 0, 0.7)'

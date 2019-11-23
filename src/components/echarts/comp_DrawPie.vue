@@ -7,10 +7,12 @@
 import detectElementResize from 'detect-element-resize'
 import getMainData from "../../api/api_getMainData";
 import { mapState,mapMutations ,mapGetters ,mapActions} from 'vuex';
+let loading = null;
 export default {
     name:"DrawPie",
     data(){
         return{
+            timer:null,
             id:"echarts_pie"+Math.round(Math.random()*100000) + new Date().getTime(),
         }
     },
@@ -26,7 +28,14 @@ export default {
             case '3':this.judgeAndGetPieData(this,3);break;
         }
         detectElementResize.addResizeListener(main,function(){
-            that.myPie.resize();
+
+            if(that.timer){
+                // that.myPie.resize();
+                clearTimeout(that.timer);
+            }
+            that.timer = setTimeout(()=>{
+                that.myPie.resize();
+            },100)
         });
 
 
@@ -43,6 +52,7 @@ export default {
                 getMainData.getTabContentPie_type1DataByAPI( data => {
                     that.setTabContentPie_type1({data:data,index:i});
                     that.drawPie(data);
+
                 },i);
             }else{
                 that.pieData = this.pieObj(i);

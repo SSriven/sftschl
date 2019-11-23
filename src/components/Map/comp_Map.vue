@@ -19,13 +19,14 @@
   }
     .amap-demo {
        height: 90% !important;
-      /*width:625px;*/
+      width:625px;
       /*max-height:270px;*/
       margin:0 auto;
     }
   </style>
 
   <script>
+
     export default {
         name:"Amap",
       data: function() {
@@ -98,6 +99,7 @@
 
       mounted(){
         // this.amapManager = new this.$VueAMap.AMapManager();
+
       },
 
       methods: {

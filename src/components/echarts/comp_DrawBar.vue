@@ -34,12 +34,14 @@ export default {
 
             
         detectElementResize.addResizeListener(main,function(){
-            that.myBar.resize();
-            // if(that.timer)
-            //     clearTimeout(that.timer);
-            // that.timer = setTimeout(()=>{
-            //
-            // },200)
+            // that.myBar.resize();
+            if(that.timer){
+                // that.myBar.resize();
+                clearTimeout(that.timer);
+            }
+            that.timer = setTimeout(()=>{
+                that.myBar.resize();
+            },100)
             
         })
     },

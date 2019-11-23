@@ -10,7 +10,6 @@ const state = {
     editableTabs: [],//标签页数组
     editableTabsValue:'0',//当前显示的标签页
     tabContentArr:[],//存储所有标签页的内容
-    key:Math.random()*100000+new Date().getTime()
 };
 
 // getters
@@ -49,18 +48,45 @@ const getters = {
         return state.tabContentArr[Number(state.editableTabsValue)].bar_type1;
     },
 
+    /**
+     * 获取当前标签页中的表格数据（type1）
+     * @param state
+     * @returns {string|null}
+     */
     currentTabContentTable_type1(state){
         return state.tabContentArr[Number(state.editableTabsValue)].tableData_type1;
     },
 
-    currentTabContentTable_type2(state){
-        return state.tabContentArr[Number(state.editableTabsValue)].tableData_type2;
+    /**
+     * 获取当前标签页中的表格数据（type2）
+     * @param state
+     * @returns {null}
+     */
+    currentTabContentTable_type2_tableData(state){
+        return state.tabContentArr[Number(state.editableTabsValue)].tableData_type2.tableData;
+    },
+
+    /**
+     * 获取当前标签页中的表格数据（type2）的总数
+     * @param state
+     * @returns {number}
+     */
+    currentTabContentTable_type2_total(state) {
+        return state.tabContentArr[Number(state.editableTabsValue)].tableData_type2.total;
+    },
+    /**
+     * 获取当前标签页中的表格数据（type2）的当前页码
+     * @param state
+     * @returns {number}
+     */
+    currentTabContentTable_type2_currentPage(state) {
+        return state.tabContentArr[Number(state.editableTabsValue)].tableData_type2.currentPage;
     },
 };
 // actions
 const actions = {
     /**
-     * 异步请求
+     * 异步请求(don't use)
      * @param commit
      * @param obj
      */
@@ -102,7 +128,7 @@ const mutations = {
 
         state.editableTabs.push(data);
         state.tabContentArr.push(new TabPageClass(data.title,data.id,data.type));
-        console.log(state.editableTabs,state.tabContentArr);
+        // console.log(state.editableTabs,state.tabContentArr);
 
     },
     /**
@@ -124,10 +150,20 @@ const mutations = {
         state.tabContentArr[Number(state.editableTabsValue)].setBar_type1(data);
     },
 
+    /**
+     * 设置标签页中的表格数据（type1）
+     * @param state
+     * @param data
+     */
     setTabContentTable_type1(state,data){
         state.tabContentArr[Number(state.editableTabsValue)].setTableData_type1(data);
     },
 
+    /**
+     * 设置标签页中的表格数据（type2）
+     * @param state
+     * @param data
+     */
     setTabContentTable_type2(state,data){
         state.tabContentArr[Number(state.editableTabsValue)].setTableData_type2(data);
     },

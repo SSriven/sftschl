@@ -2,7 +2,6 @@
  * 封装主体内容
  */
 
-import getMainDataApi from '../api/api_getMainData.js';
 
 export default class TabPageClass{
     /**
@@ -18,8 +17,8 @@ export default class TabPageClass{
         this.pie_type1 = {pie1:null,pie2:null,pie3:null};//标签页中的圆饼图数据
         this.bar_type1 = null;//标签页中的柱状图数据
         this.amap_type1 = null;//标签页中地图的数据
-        this.tableData_type1 = null;
-        this.tableData_type2 = null;
+        this.tableData_type1 = null;//type1标签页下的表格
+        this.tableData_type2 = {total:0,tableData:null,currentPage:1};//type2标签页下的表格
     }
 
 
@@ -55,10 +54,18 @@ export default class TabPageClass{
         this.amap_type1 = amap;
     }
 
+    /**
+     * 设置type1表格对象
+     * @param tableData
+     */
     setTableData_type1(tableData){
         this.tableData_type1 = tableData;
     }
 
+    /**
+     * 设置type2表格数据
+     * @param tableData
+     */
     setTableData_type2(tableData){
         this.tableData_type2 = tableData;
     }
