@@ -5,7 +5,7 @@
             class="table_fxjqy"
             :id="id"
             height="550"
-
+            highlight-current-row
             ref="filterTable"
             :data="tableData"
             style="width: 100%">

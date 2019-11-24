@@ -18,23 +18,23 @@
             }
         },
         mounted(){
-            var that = this;
-            var main = document.getElementById('my_header');
-            detectElementResize.addResizeListener(main,function(){
-                var h = main.style.display;
-
-                if(h === 'none'){
-                    that.item_box_styleObj = {height:(document.documentElement.clientHeight-96) + 'px'}
-                    $("#main_gs").css({height:document.documentElement.clientHeight+'px'})
-                }
-
-                else{
-                    $("#main_gs").css({height:document.documentElement.clientHeight-60+'px'})
-                    that.item_box_styleObj = {height:(document.documentElement.clientHeight-156) + 'px'}
-                }
-
-
-            })
+            // var that = this;
+            // var main = document.getElementById('my_header');
+            // detectElementResize.addResizeListener(main,function(){
+            //     var h = main.style.display;
+            //
+            //     if(h === 'none'){
+            //         that.item_box_styleObj = {height:(document.documentElement.clientHeight-96) + 'px'}
+            //         $("#main_gs").css({height:document.documentElement.clientHeight+'px'})
+            //     }
+            //
+            //     else{
+            //         $("#main_gs").css({height:document.documentElement.clientHeight-60+'px'})
+            //         that.item_box_styleObj = {height:(document.documentElement.clientHeight-156) + 'px'}
+            //     }
+            //
+            //
+            // })
         },
         methods:{
 

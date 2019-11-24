@@ -82,6 +82,7 @@
              */
             detectElementResize.addResizeListener(main,function(){
                 let h = main.style.display;
+                // console.log(h);
 
                 if(h === 'none'){   //header组件隐藏
                     that.item_box_styleObj = {height:(document.documentElement.clientHeight-96) + 'px'};

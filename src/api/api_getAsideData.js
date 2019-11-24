@@ -4,7 +4,8 @@
  * @private
  */
 
-import '../plugins/plugin_mock.js';
+import Mock from 'mockjs'
+
 import request from '../http/request.js';
 
 
@@ -539,6 +540,15 @@ treeData:[{
      */
     getTabList (cb) {
       setTimeout(() => cb(_tabList), 100)
+      Mock.mock('http://route.showapi.com/60-21',{
+        "treeData": [{className:"tab-item is-active",labelName:"辖区企业数据"},
+          {className:"tab-item",labelName:"风险评级企业"},
+          {className:"tab-item",labelName:"行政执法"},
+          {className:"tab-item",labelName:"用户角色管理"},]
+      });
+      request.http_mock_get('http://route.showapi.com/60-21','api_id=63114&api_sign=3847b0').then(response => {
+        cb(response.treeData);
+      });
     },
   
     /**

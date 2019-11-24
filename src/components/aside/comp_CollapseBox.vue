@@ -7,7 +7,7 @@
       {{item.labelName}}
     </li>
   </ul>
-  <GeminiScrollbar autoshow class='collapse' :style="styleObj">
+  <GeminiScrollbar autoshow  :style="styleObj">
     <nav-menu v-if="currentTab === '3'"></nav-menu>
     <menu-tree v-else></menu-tree>
   </GeminiScrollbar>
@@ -127,6 +127,7 @@ Vue.use(GeminiScrollbar);
 
 .gm-scrollbar-container{
   overflow: hidden;
+  width: auto !important;
 }
 
 

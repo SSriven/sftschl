@@ -20,8 +20,8 @@ export default {
     name:"MenuTree",
     data(){
         return {
-         
-           
+
+
         defaultProps: {
           children: 'children',
           label: 'label'
