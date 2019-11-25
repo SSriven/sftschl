@@ -556,24 +556,27 @@ treeData:[{
      * @param {*} cb 
      */
     getMenuTree(cb,index){
-        let data = null;
-        switch(index){
-          case '0':
-            console.log(0);
-            request.http_mock_get('http://route.showapi.com/60-26').then(response => {
+      console.log(index);
+        switch(Number(index)){
+
+          case 0:
+            // console.log(0);
+            request.http_mock_get('http://route.showapi.com/60-25').then(response => {
               cb(response);
-          });
+            });
           //     cb(_menuTree1.tableData);
             break;
-          case '1':
-            request.http_mock_get('http://route.showapi.com/60-25').then(response => {
-            cb(response);
-          });break;
-          case '2':
+          case 1:
+            // console.log(1);
+            request.http_mock_get('http://route.showapi.com/60-26').then(response => {
+              cb(response);
+            });break;
+          case 2:
+            // console.log(2);
             request.http_mock_get('http://route.showapi.com/60-27').then(response => {
-            cb(response);
-          });break;
-          default:data = null;
+              cb(response);
+            });break;
+          // case 3:console.log(3);break;
         }
 
         // setTimeout(() => cb(data),100)

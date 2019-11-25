@@ -36,6 +36,7 @@ const actions = {
    * @param currentTab
    */
   getMenuTree ({ commit },currentTab) {
+    console.log(currentTab);
     getAsideData.getMenuTree((menuTree) => {
       commit('setMenuTree', menuTree)
     },currentTab)

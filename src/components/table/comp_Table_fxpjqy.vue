@@ -4,7 +4,7 @@
             empty-text=" "
             class="table_fxjqy"
             :id="id"
-            height="550"
+            :height="height"
             highlight-current-row
             ref="filterTable"
             :data="tableData"
@@ -173,6 +173,20 @@
                             ]"
                 :filter-method="filterHandler">
         </el-table-column>
+        <el-table-column
+                prop="evaluateNum"
+                label="评定次数"
+                sortable
+                width="140"
+                align='center'>
+        </el-table-column>
+        <el-table-column
+                prop="lastEvaluateTime"
+                label="最后评定时间"
+                sortable
+                width="140"
+                align='center'>
+        </el-table-column>
     </el-table>
         <br>
         <el-pagination
@@ -181,7 +195,7 @@
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
                 :current-page.sync="currentPage"
-                :page-size="15"
+                :page-size="20"
                 layout="total,prev, pager, next, jumper"
                 :total="total">
         </el-pagination>
@@ -195,6 +209,7 @@
 </template>
 
 <script>
+    import detectElementResize from 'detect-element-resize'
     import getMainData from "../../api/api_getMainData";
     import { mapState,mapMutations ,mapGetters ,mapActions} from 'vuex'
     let loading;
@@ -204,6 +219,7 @@
         data(){
             return{
                 id:'table_fxpjqy_'+Math.random()*100000+new Date().getTime(),
+                height:(document.documentElement.clientHeight-205.6),
                 currentPage: 1,
                 filter_multiple:true,
                 filter_multiple_false:false,
@@ -229,6 +245,19 @@
                 that.currentPage = that.currentPageIndex;
                 // that.loading = false;
             }
+
+            let main = document.getElementById('my_header');
+            detectElementResize.addResizeListener(main,function(){
+                let h = main.style.display;
+
+                if(h === 'none'){
+                    that.height = document.documentElement.clientHeight-145.6
+                }
+                else{
+                    that.height = document.documentElement.clientHeight-205.6
+                }
+
+            })
 
 
         },

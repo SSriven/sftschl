@@ -59,16 +59,8 @@ let menuTreeData1 = function() {
                     label: Random.city(),
                     id: Random.id(),
                     children:[],
-                    type:'1'
+                    type:'4'
                 };
-                for(let l = 1; l <= Math.round(Math.random()*5+1); l++){
-                    let obj4 = {
-                        label: Random.city(),
-                        id: Random.id(),
-                        type:'4'
-                    };
-                    obj3.children.push(obj4);
-                }
                 obj2.children.push(obj3);
             }
             obj1.children.push(obj2);
@@ -150,9 +142,9 @@ let pie1Data = function(){
 /**
  * 侧边栏数据
  */
+Mock.mock('http://route.showapi.com/60-25', 'get', menuTreeData1());
+Mock.mock('http://route.showapi.com/60-26', 'get', menuTreeData2());
 Mock.mock('http://route.showapi.com/60-27', 'get', menuTreeData3());
-Mock.mock('http://route.showapi.com/60-26', 'get', menuTreeData1());
-Mock.mock('http://route.showapi.com/60-25', 'get', menuTreeData2());
 
 /**
  * pie1数据

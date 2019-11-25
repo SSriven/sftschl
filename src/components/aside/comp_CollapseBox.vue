@@ -46,7 +46,8 @@ Vue.use(GeminiScrollbar);
       })
     },
     created () {
-      this.$store.dispatch('asideDataStore/getTabList')
+      this.$store.dispatch('asideDataStore/getTabList');
+      this.$store.dispatch('asideDataStore/getMenuTree','0');
     },
 
     methods:{
@@ -62,6 +63,7 @@ Vue.use(GeminiScrollbar);
         this.changeTabList(list);
         this.changeTabIndex(index+'');
         this.getMenuTree(index+'');
+        // console.log(index,this.currentTab)
       },
       ...mapActions('asideDataStore', [
           'getMenuTree'

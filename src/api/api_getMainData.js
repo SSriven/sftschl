@@ -487,7 +487,18 @@ export default {
         // setTimeout(()=>backFun(optionBar),200);
 
         backFun({
-            id: 'echarts_bar' + Math.round(Math.random() * 10000) + new Date().getTime(),
+            title : {
+                text: '辖区企业隐患分布图',
+                x:'left',
+                textStyle:{
+                    fontSize:14,
+                    color:"#666",
+                }
+            },
+            legend: {
+                data: ['隐患数量', '隐患分值', '企业数量'],
+                x:'right'
+            },
             color: ['#E062AE', '#67E0E3', '#FFDB5C', '#32C5E9', '#37A2DA', '#E690D1', '#ff9f7f', '#9FE6B8',],
             tooltip: {
                 trigger: 'axis',
@@ -584,7 +595,13 @@ export default {
      */
     getTabContentPie1_type1DataByAPI(backFun) {
         setTimeout(() => backFun({
-            id: 'echarts_pie1' + Math.round(Math.random() * 10000) + new Date().getTime(),
+            title : {
+                text: '人机物法环-隐患统计图',
+                textStyle:{
+                    fontSize:14,
+                    color:"#666",
+                }
+            },
             color: ['#ff9f7f', '#fb7293', '#E062AE', '#E690D1', '#37A2DA', '#32C5E9', '#67E0E3', '#9FE6B8', '#FFDB5C'],
             tooltip: {
                 trigger: 'item',
@@ -628,7 +645,13 @@ export default {
 
     getTabContentPie2_type1DataByAPI(backFun) {
         setTimeout(() => backFun({
-            id: 'echarts_pie2' + Math.round(Math.random() * 10000) + new Date().getTime(),
+            title : {
+                text: '风险级别-隐患统计图',
+                textStyle:{
+                    fontSize:14,
+                    color:"#666",
+                }
+            },
             color: ['#37A2DA', '#32C5E9', '#67E0E3', '#9FE6B8', '#FFDB5C', '#ff9f7f', '#fb7293', '#E062AE', '#E690D1'],
             tooltip: {
                 trigger: 'item',
@@ -668,7 +691,13 @@ export default {
 
     getTabContentPie3_type1DataByAPI(backFun) {
         setTimeout(() => backFun({
-            id: 'echarts_pie3' + Math.round(Math.random() * 10000) + new Date().getTime(),
+            title : {
+                text: '行业-隐患统计图',
+                textStyle:{
+                    fontSize:14,
+                    color:"#666",
+                }
+            },
             color: ['#fb7293', '#E062AE', '#E690D1', '#37A2DA', '#32C5E9', '#67E0E3', '#9FE6B8', '#FFDB5C', '#ff9f7f',],
             tooltip: {
                 trigger: 'item',
@@ -746,7 +775,7 @@ export default {
         Mock.mock('http://route.showapi.com/60-22',{
             "total|10-100":0,
             "currentPage":1,
-            "tableData|15": [{   // 随机生成5到10个数组元素
+            "tableData|20": [{   // 随机生成5到10个数组元素
                 'enterpriseName': '@cname',  // 中文名称
                 "industry":'@cname',
                 'township': '@city',
@@ -758,7 +787,9 @@ export default {
                 hazardousChemicalProcess: Math.random() < 0.5 ? "否" : "是",
                 lawEnforcement: Math.random() < 0.5 ? "否" : "是",
                 confinedSpace: Math.random() < 0.5 ? "有" : "无",
-                dustExplosion: Math.random() < 0.5 ? "有" : "无"
+                dustExplosion: Math.random() < 0.5 ? "有" : "无",
+                'evaluateNum|1-100':0,
+                'lastEvaluateTime':Random.date("yyyy-MM-dd")
             }]
         });
         request.http_mock_get('http://route.showapi.com/60-22','api_id=63114&api_sign=3847b0').then(response => {

@@ -30,7 +30,7 @@ export default {
         }
     },
     created () {
-      this.$store.dispatch('asideDataStore/getMenuTree','0')
+      // this.$store.dispatch('asideDataStore/getMenuTree',this.currentTab)
     },
     mounted(){
       // console.log(this.data)
