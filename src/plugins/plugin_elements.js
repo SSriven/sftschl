@@ -27,9 +27,18 @@ import{
     Menu,
     MenuItem,
     Pagination,
-    Tag
+    Tag,
+    MessageBox,
+    Message,
+    Upload,
+    Dialog
 } from 'element-ui'
+// import VueAMap from "vue-amap";
 
+// Vue.use(MessageBox);
+// Vue.use(Message);
+Vue.use(Upload);
+Vue.use(Dialog);
 Vue.use(Tag);
 Vue.use(Pagination);
 Vue.use(Menu);
@@ -55,3 +64,7 @@ Vue.use(CollapseItem);
 Vue.use(Tree);
 Vue.use(Col);
 Vue.use(Row);
+
+Vue.prototype.$confirm = MessageBox.confirm;
+Vue.prototype.$message = Message;
+Vue.prototype.$msgbox = MessageBox;

@@ -82,6 +82,14 @@ const getters = {
     currentTabContentTable_type2_currentPage(state) {
         return state.tabContentArr[Number(state.editableTabsValue)].tableData_type2.currentPage;
     },
+    /**
+     * 获取当前标签页中的表格数据(type3)
+     * @param state
+     * @returns {null}
+     */
+    currentTabContentTable_type3_top(state){
+        return state.tabContentArr[Number(state.editableTabsValue)].tableData_type3;
+    },
 };
 // actions
 const actions = {
@@ -166,6 +174,15 @@ const mutations = {
      */
     setTabContentTable_type2(state,data){
         state.tabContentArr[Number(state.editableTabsValue)].setTableData_type2(data);
+    },
+
+    /**
+     * 设置标签页中的表格数据(type3)
+     * @param state
+     * @param data
+     */
+    setTabContentTable_type3(state,data){
+        state.tabContentArr[Number(state.editableTabsValue)].setTableData_type3(data);
     },
 
 };
