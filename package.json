@@ -12,7 +12,7 @@
     "detect-element-resize": "^0.0.2",
     "echarts": "^4.4.0",
     "element-ui": "^2.12.0",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "jquery-mousewheel": "^3.1.13",
     "vue": "^2.6.10",
     "vue-amap": "^0.5.10",
